@@ -8,6 +8,8 @@ TagManager:
   - BlendPlane1
   - PlayerRed
   - PlayerBlue
+  - Puck
+  - SpeedZone
   layers:
   - Default
   - TransparentFX
