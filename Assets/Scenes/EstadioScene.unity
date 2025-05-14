@@ -2308,6 +2308,10 @@ PrefabInstance:
       value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 4207101930163263104, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
+      propertyPath: hitforce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4207101930163263104, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
       propertyPath: defaultColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -2325,7 +2329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4207101930163263110, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4207101930163263110, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
       propertyPath: m_Constraints
