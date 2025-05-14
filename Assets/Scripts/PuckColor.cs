@@ -12,10 +12,14 @@ public class PuckColor : MonoBehaviour
     public PlayerController lastPlayerTouched;
 
     public float speed = 10f;
-    public float speedZoneMultiplier = 2f; // Multiplicador de velocidad en la zona de velocidad
+    public float speedZoneMultiplier = 5f; // Multiplicador de velocidad en la zona de velocidad
 
     private Rigidbody rb;
     public float hitforce = 100f; // Fuerza de golpeo del puck
+
+    private bool isSpeedBoosted = false;
+    private float speedBoostDuration = 3f;  
+    
     void Start()
     {
         puckRenderer.material.color = defaultColor;
@@ -46,16 +50,38 @@ public class PuckColor : MonoBehaviour
             }
         }
 
-        if(collision.gameObject.CompareTag("SpeedZone")) //podemos poner tags distintos a cada zona o 
-        // hacer como en los power ups de poner numeros random del 1 al que queramos y segun el que toque que sea una zona
-        {
-            //aumentar la velocidad del puck
-            speed *= speedZoneMultiplier;
-            Debug.Log("Speed Zone: " + speed);
-           
-        }
-        {
-            
-        }
+}
+private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
+    {
+        Debug.Log("Puck ha entrado en zona de velocidad");
+
+        rb.velocity *= speedZoneMultiplier;
+        isSpeedBoosted = true;
     }
+}
+
+private void OnTriggerExit(Collider other)
+{
+    if (other.CompareTag("SpeedZone"))
+    {
+        Debug.Log("Puck ha salido de la zona de velocidad");
+
+        // Al salir, empieza el conteo para volver a velocidad normal
+        StartCoroutine(EndSpeedBoostAfterTime());
+    }
+}
+
+private IEnumerator EndSpeedBoostAfterTime()
+{
+    yield return new WaitForSeconds(speedBoostDuration);
+
+    // Reducir la velocidad (de forma proporcional)
+    rb.velocity /= speedZoneMultiplier;
+    isSpeedBoosted = false;
+
+    Debug.Log("Puck vuelve a velocidad normal");
+}
+
 }
