@@ -1,57 +1,53 @@
 using UnityEngine;
-
+using System.Collections;
 public class PowerUpBox : MonoBehaviour
 {
-    public GameObject extraPuckPrefab; 
+    
+    public GameObject extraPuckPrefab;
+   
+
     private void OnTriggerEnter(Collider other)
     {
+        // Comprobar si es un puck
         if (other.CompareTag("Puck"))
         {
-            PuckColor puck = other.GetComponent<PuckColor>();
-            if (puck != null && puck.lastPlayerTouched != null)
-            {
-                puck.lastPlayerTouched.ActivatePowerUp();
+           
+                // Activar power-up al jugador
+                //puck.lastPlayerTouched.ActivatePowerUp();
+
                 
-                int randomPower = 2;//Random.Range(1, 4);  // 1, 2, o 3
-                if(randomPower == 2)
+                int randomPower = 1; // Cambiar a Random.Range(1,4) 
+
+                if (randomPower == 2)
                 {
-                    // Power-Up 2: Crear un nuevo puck
-                    if (extraPuckPrefab != null)
-                    {   
-                        
-                        Vector3 spawnPos = new Vector3(3.867148f, 35.30695f,45.82728f); //coordenadas del centro del campo
-                        Instantiate(extraPuckPrefab, spawnPos, Quaternion.identity);
-                        Debug.Log("Power-Up: Puck Extra");
-                    }
+                    StartCoroutine(GiantPuck(other.transform));
+                    Debug.Log("Puck Gigante");
+                }else if(randomPower == 1)
+                {
+                    
+                    GameObject newPuck = Instantiate(extraPuckPrefab, other.transform.position, Quaternion.identity);
+                    Rigidbody rb = newPuck.GetComponent<Rigidbody>();
+                    
+                    Debug.Log("Nuevo puck creado");
                 }
-                
-                /*    
-                switch (randomPower)
-                {
-                    case 1:
-                        // Power-Up 1: 
-
-                    case 2:
-                        // Power-Up 2: Crear un nuevo puck
-                        
-                        if (extraPuckPrefab != null)
-                        {
-                            Vector3 spawnPos = new Vector3(3.867148f, 35.30695f,45.82728f);
-                            Instantiate(extraPuckPrefab, spawnPos, Quaternion.identity);
-                            Debug.Log("Power-Up: Puck Extra");
-                        }
-                        break;
-
-                    case 3:
-                        // Power-Up 3: Podría ser otro como escudo o confusión
-                        Debug.Log("Power-Up: Escudo (o lo que sea)");
-                        break;
-                }*/
-            }
-            }
+              
+            
 
             // Desactivar la caja tras recogerla
             gameObject.SetActive(false);
         }
-}
+    }
 
+    private IEnumerator GiantPuck(Transform puckTransform)
+    {
+        
+        Debug.Log("Puck se hace gigante");
+        Vector3 originalScale = puckTransform.localScale;
+        puckTransform.localScale = originalScale * 1.5f;
+        yield return new WaitForSeconds(1.5f);
+        puckTransform.localScale = originalScale;
+        Debug.Log("Puck vuelve a tamaño normal");
+        
+    }
+
+}

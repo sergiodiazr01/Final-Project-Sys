@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4207101929646385090
+--- !u!1 &3510374760763325364
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4207101929646385091}
-  - component: {fileID: 4207101929646385102}
-  - component: {fileID: 4207101929646385101}
-  - component: {fileID: 4207101929646385100}
+  - component: {fileID: 3510374760763325365}
+  - component: {fileID: 3510374760763325368}
+  - component: {fileID: 3510374760763325371}
+  - component: {fileID: 3510374760763325370}
   m_Layer: 0
   m_Name: PuckMesh
-  m_TagString: Untagged
+  m_TagString: Puck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4207101929646385091
+--- !u!4 &3510374760763325365
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101929646385090}
+  m_GameObject: {fileID: 3510374760763325364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -8.59, z: 0}
   m_LocalScale: {x: 1, y: 0.05, z: 1}
   m_Children: []
-  m_Father: {fileID: 4207101930163263111}
+  m_Father: {fileID: 3510374762320251633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4207101929646385102
+--- !u!33 &3510374760763325368
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101929646385090}
+  m_GameObject: {fileID: 3510374760763325364}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4207101929646385101
+--- !u!23 &3510374760763325371
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101929646385090}
+  m_GameObject: {fileID: 3510374760763325364}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -82,21 +82,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4207101929646385100
+--- !u!136 &3510374760763325370
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101929646385090}
+  m_GameObject: {fileID: 3510374760763325364}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 20
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!1 &4207101930163263109
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000011920929}
+--- !u!1 &3510374762320251635
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,38 +104,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4207101930163263111}
-  - component: {fileID: 4207101930163263110}
-  - component: {fileID: 4207101930163263104}
+  - component: {fileID: 3510374762320251633}
+  - component: {fileID: 3510374762320251632}
+  - component: {fileID: 3510374762320251638}
   m_Layer: 0
-  m_Name: Puck
+  m_Name: Puck 1
   m_TagString: Puck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4207101930163263111
+--- !u!4 &3510374762320251633
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101930163263109}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.5, y: 0, z: -23.79}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_GameObject: {fileID: 3510374762320251635}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.867148, y: 35.306953, z: 45.827282}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
-  - {fileID: 4207101929646385091}
+  - {fileID: 3510374760763325365}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4207101930163263110
+--- !u!54 &3510374762320251632
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101930163263109}
+  m_GameObject: {fileID: 3510374762320251635}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -144,20 +144,20 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
-  m_CollisionDetection: 1
---- !u!114 &4207101930163263104
+  m_CollisionDetection: 3
+--- !u!114 &3510374762320251638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4207101930163263109}
+  m_GameObject: {fileID: 3510374762320251635}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4406360b6502a1f43bb9aacd9e050829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puckRenderer: {fileID: 4207101929646385101}
+  puckRenderer: {fileID: 3510374760763325371}
   defaultColor: {r: 0, g: 0, b: 0, a: 1}
   redPlayerColor: {r: 1, g: 0, b: 0, a: 1}
   bluePlayerColor: {r: 0, g: 0, b: 1, a: 1}
