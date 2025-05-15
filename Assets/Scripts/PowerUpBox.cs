@@ -33,8 +33,9 @@ public class PowerUpBox : MonoBehaviour
               
             
 
-            // Desactivar la caja tras recogerla
-            gameObject.SetActive(false);
+            //destruir la caja tras tocarla
+            Destroy(gameObject);
+
         }
     }
 

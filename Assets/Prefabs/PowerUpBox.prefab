@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7791055549980706659}
   - component: {fileID: 7791055549980706656}
   - component: {fileID: 7791055549980706657}
+  - component: {fileID: -5899584724072886511}
   m_Layer: 0
   m_Name: PowerUpBox
   m_TagString: Untagged
@@ -44,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 6.8855834, z: 1}
+  m_Center: {x: 0, y: -2.9427917, z: 0}
 --- !u!114 &7791055549980706657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +62,19 @@ MonoBehaviour:
   amplitude: 0.25
   frequency: 1
   rotationSpeed: 45
+--- !u!114 &-5899584724072886511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7791055549980706670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9500aa1ac7406184981be6bc860ff9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraPuckPrefab: {fileID: 4207101930163263109, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
 --- !u!1001 &7791055549093987738
 PrefabInstance:
   m_ObjectHideFlags: 0
