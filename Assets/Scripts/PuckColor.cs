@@ -28,7 +28,7 @@ public class PuckColor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {   
-        if (collision.gameObject.CompareTag("PlayerRed") || collision.gameObject.CompareTag("PlayerBlue"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
 
@@ -39,7 +39,7 @@ public class PuckColor : MonoBehaviour
             rb.AddForce(direction * hitforce, ForceMode.Impulse);
 
 
-            if (collision.gameObject.CompareTag("PlayerRed"))
+            /*if (collision.gameObject.CompareTag("PlayerRed"))
             {
                 Debug.Log("a");
                 puckRenderer.material.color = redPlayerColor;
@@ -47,7 +47,15 @@ public class PuckColor : MonoBehaviour
             else if (collision.gameObject.CompareTag("PlayerBlue"))
             {
                 puckRenderer.material.color = bluePlayerColor;
+            }*/
+            if (lastPlayerTouched != null)
+            {
+                if (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
+                    puckRenderer.material.color = redPlayerColor;
+                else if (lastPlayerTouched.GetTeam() == PlayerTeam.Blue)
+                    puckRenderer.material.color = bluePlayerColor;
             }
+
         }
 
 }

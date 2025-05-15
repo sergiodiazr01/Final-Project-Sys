@@ -15,11 +15,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        // Asignar automáticamente el equipo según el tag (si prefieres no setearlo manualmente)
-        if (gameObject.CompareTag("PlayerRed"))
-            team = PlayerTeam.Red;
-        else if (gameObject.CompareTag("PlayerBlue"))
-            team = PlayerTeam.Blue;
+        
+        
     }
 
     public void ActivatePowerUp()
