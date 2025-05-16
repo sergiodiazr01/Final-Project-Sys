@@ -3358,10 +3358,10 @@ MonoBehaviour:
   calibrationUI: {fileID: 220600117}
   trackingInterface: {fileID: 220600112}
   enableTracking: 0
-  numberOfPlayers: 4
+  numberOfPlayers: 2
   numberOfBaseStations: 4
   enableRotation: 1
-  enableYAxis: 1
+  enableYAxis: 0
   virtualWorldSpace: {x: 100, y: 1, z: 100}
   players:
   - {fileID: 1440896347}
@@ -3372,7 +3372,7 @@ MonoBehaviour:
   - {fileID: 1554760525}
   - {fileID: 483883237}
   - {fileID: 1151668547}
-  calibrationSaveFilePath: 
+  calibrationSaveFilePath: D:\Calibration\Eje Z
   playerSelected: 1
   trackingDisabledPlayerSpeed: 5
 --- !u!1 &689117878
