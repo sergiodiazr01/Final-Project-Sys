@@ -20,14 +20,19 @@ public class PuckColor : MonoBehaviour
     private bool isSpeedBoosted = false;
     private float speedBoostDuration = 3f;  
     
+    public AudioClip hitByPlayerSound;
+    public AudioClip wallBounceSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         puckRenderer.material.color = defaultColor;
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
-    {   
+    {
         if (collision.gameObject.CompareTag("Player"))
         {
             lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
@@ -37,7 +42,7 @@ public class PuckColor : MonoBehaviour
             //float scaledForce = impactSpeed * hitforce;
             //rb.AddForce(direction * scaledForce, ForceMode.Impulse);
             rb.AddForce(direction * hitforce, ForceMode.Impulse);
-
+            audioSource.PlayOneShot(hitByPlayerSound);
 
             /*if (collision.gameObject.CompareTag("PlayerRed"))
             {
@@ -56,6 +61,11 @@ public class PuckColor : MonoBehaviour
                     puckRenderer.material.color = bluePlayerColor;
             }
 
+        }
+        else if (collision.gameObject.CompareTag("wall"))
+        {
+            if (audioSource != null && wallBounceSound != null)
+                audioSource.PlayOneShot(wallBounceSound);
         }
 
 }
