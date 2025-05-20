@@ -3,7 +3,21 @@ guid: 6e3645609410a3049aaccdefc8dc9e17
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - redScoreText: {instanceID: 0}
+  - blueScoreText: {instanceID: 0}
+  - winText: {instanceID: 0}
+  - menuCanvas: {fileID: 2354237033005298800, guid: 8dc7b1338bca0fa42a96de8a7e2069bd, type: 3}
+  - gameObjects: {instanceID: 0}
+  - startButton: {instanceID: 0}
+  - directionalLight: {instanceID: 0}
+  - mapSelector: {instanceID: 0}
+  - powerUpOption: {instanceID: 0}
+  - obstacleOption: {instanceID: 0}
+  - specialZoneOption: {instanceID: 0}
+  - obstacleZone: {instanceID: 0}
+  - powerUpZone: {instanceID: 0}
+  - specialZone: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
