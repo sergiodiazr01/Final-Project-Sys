@@ -18,8 +18,11 @@ public class PuckColor : MonoBehaviour
     public float hitforce = 100f; // Fuerza de golpeo del puck
 
     private bool isSpeedBoosted = false;
-    private float speedBoostDuration = 3f;  
-    
+    private float speedBoostDuration = 3f;
+
+    private bool isReverseZone = false; 
+    public float reversaCooldownTime = 3f;
+
     public AudioClip hitByPlayerSound;
     public AudioClip wallBounceSound;
     private AudioSource audioSource;
@@ -71,24 +74,40 @@ public class PuckColor : MonoBehaviour
 }
 private void OnTriggerEnter(Collider other)
 {
-    if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
-    {
-        Debug.Log("Puck ha entrado en zona de velocidad");
+        if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
+        {
+            Debug.Log("Puck ha entrado en zona de velocidad");
 
-        rb.velocity *= speedZoneMultiplier;
-        isSpeedBoosted = true;
-    }
+            rb.velocity *= speedZoneMultiplier;
+            isSpeedBoosted = true;
+        }
+        else if (other.CompareTag("ReverseZone"))
+        {
+            Debug.Log("Puck ha entrado en zona trampa");
+
+
+            Vector3 currentDirection = rb.velocity.normalized;
+
+
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            //fuerza hacia atras
+            rb.AddForce(-currentDirection * 15f, ForceMode.Impulse);
+            
+        }
 }
 
-private void OnTriggerExit(Collider other)
-{
-    if (other.CompareTag("SpeedZone"))
+    private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Puck ha salido de la zona de velocidad");
+        if (other.CompareTag("SpeedZone"))
+        {
+            Debug.Log("Puck ha salido de la zona de velocidad");
 
-        // Al salir, empieza el conteo para volver a velocidad normal
-        StartCoroutine(EndSpeedBoostAfterTime());
-    }
+            // Al salir, empieza el conteo para volver a velocidad normal
+            StartCoroutine(EndSpeedBoostAfterTime());
+        }
+        
 }
 
 private IEnumerator EndSpeedBoostAfterTime()

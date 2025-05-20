@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7776374473960139805}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.95, y: 19.07, z: 44.12}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 2, z: 3}
   m_Children:
   - {fileID: 7776374474355632821}
   m_Father: {fileID: 0}
@@ -70,6 +70,7 @@ MonoBehaviour:
   speed: 5
   speedZoneMultiplier: 2
   hitforce: 50
+  reversaCooldownTime: 3
   hitByPlayerSound: {fileID: 8300000, guid: b86ec43a0614c8645b6d7e2f4b656efd, type: 3}
   wallBounceSound: {fileID: 8300000, guid: 6675d5777f20a07418be7bf0b83cdf82, type: 3}
 --- !u!82 &7776374473960139806
