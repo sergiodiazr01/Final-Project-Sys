@@ -74,14 +74,23 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ShieldCoroutine(float duration)
     {
-        goalShield.SetActive(true);
+        Collider shieldCollider = goalShield.GetComponent<Collider>();
+        
+        if (shieldCollider != null)
+            shieldCollider.enabled = true;  // ACTIVAR el collider
+
+        goalShield.SetActive(true); // (opcional si también quieres mostrar algo visual)
         Debug.Log("Escudo activado en la portería de " + team);
 
         yield return new WaitForSeconds(duration);
 
-        goalShield.SetActive(false);
+        if (shieldCollider != null)
+            shieldCollider.enabled = false;  // DESACTIVAR el collider
+
+        goalShield.SetActive(false); // (opcional para ocultar el objeto)
         Debug.Log("Escudo desactivado");
     }
+
 
 
 }

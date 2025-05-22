@@ -11,12 +11,12 @@ public class PowerUpBox : MonoBehaviour
         // Comprobar si es un puck
         if (other.CompareTag("Puck"))
         {
-           
-                // Activar power-up al jugador
-                //puck.lastPlayerTouched.ActivatePowerUp();
-                
-                
-                int randomPower = Random.Range(1,4); // Cambiar a Random.Range(1,4) 
+
+            // Activar power-up al jugador
+            //puck.lastPlayerTouched.ActivatePowerUp();
+
+
+            int randomPower = 1;//Random.Range(1,4);
 
                 if (randomPower == 1)
                 {

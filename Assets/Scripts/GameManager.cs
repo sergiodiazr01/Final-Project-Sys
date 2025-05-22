@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public GameObject puckPrefab;
     public int redScore = 0;
     public int blueScore = 0;
-    public int scoreToWin = 3;
+    public int scoreToWin = 5;
 
     public TextMeshProUGUI redScoreText;
     public TextMeshProUGUI blueScoreText;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             if (menuCanvas != null) menuCanvas.SetActive(true);
             if (gameObjects != null) gameObjects.SetActive(false);
-            if (scoreCanvas != null)   scoreCanvas.SetActive(false);
+            if (scoreCanvas != null) scoreCanvas.SetActive(false);
             if (directionalLight != null) directionalLight.enabled = false;
         }
     }
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         // Activar zona de juego
         if (gameObjects != null) gameObjects.SetActive(true);
 
-        if (scoreCanvas != null)   scoreCanvas.SetActive(true);
+        if (scoreCanvas != null) scoreCanvas.SetActive(true);
 
         // Activar la luz de juego
         if (directionalLight != null) directionalLight.enabled = false;
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
         winText.gameObject.SetActive(true);
         winText.text = message;
 
-         // Ocultar el marcador al acabar la partida
+        // Ocultar el marcador al acabar la partida
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
 
@@ -116,5 +118,16 @@ public class GameManager : MonoBehaviour
 
         // Apagar la luz del juego
         if (directionalLight != null) directionalLight.enabled = false;
+    }
+    
+    public void RespawnPuck(float delay = 1f)
+    {
+        StartCoroutine(RespawnPuckCoroutine(delay));
+    }
+
+    private IEnumerator RespawnPuckCoroutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Instantiate(puckPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity);
     }
 }

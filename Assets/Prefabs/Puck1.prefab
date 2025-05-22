@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 4370923268126289885}
   - component: {fileID: 4370923268126289884}
   m_Layer: 0
-  m_Name: Puck 2
+  m_Name: Puck1
   m_TagString: Puck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,12 +166,12 @@ MonoBehaviour:
   speed: 5
   speedZoneMultiplier: 2
   hitforce: 50
-  reversaCooldownTime: 3
   hitByPlayerSound: {fileID: 8300000, guid: b86ec43a0614c8645b6d7e2f4b656efd, type: 3}
   wallBounceSound: {fileID: 8300000, guid: 6675d5777f20a07418be7bf0b83cdf82, type: 3}
   redGoalTarget: {fileID: 0}
   blueGoalTarget: {fileID: 0}
   forceToGoal: 100
+  invertDuration: 5
 --- !u!82 &4370923268126289884
 AudioSource:
   m_ObjectHideFlags: 0
