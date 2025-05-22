@@ -16,7 +16,7 @@ public class PowerUpBox : MonoBehaviour
             //puck.lastPlayerTouched.ActivatePowerUp();
 
 
-            int randomPower = 1;//Random.Range(1,4);
+            int randomPower = Random.Range(1,4);
 
                 if (randomPower == 1)
                 {
