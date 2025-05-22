@@ -1091,6 +1091,7 @@ Transform:
   - {fileID: 824491395}
   - {fileID: 950914319}
   - {fileID: 4207101930021024359}
+  - {fileID: 636644655}
   m_Father: {fileID: 539840692}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3256,7 +3257,7 @@ GameObject:
   - component: {fileID: 535202434}
   - component: {fileID: 535202437}
   m_Layer: 0
-  m_Name: Porteria1(PH) (1)
+  m_Name: Porteria2(PH)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3971,6 +3972,11 @@ MonoBehaviour:
   calibrationSaveFilePath: D:\Calibration\Eje Z
   playerSelected: 1
   trackingDisabledPlayerSpeed: 5
+--- !u!4 &636644655 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+  m_PrefabInstance: {fileID: 1327735756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &689117878
 GameObject:
   m_ObjectHideFlags: 0
@@ -6400,6 +6406,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3169668576073457521, guid: cf22a2db10f09a34495e9f83913738c8, type: 3}
   m_PrefabInstance: {fileID: 1485774269}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1327735756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 133621815}
+    m_Modifications:
+    - target: {fileID: -5899584724072886511, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: extraPuckPrefab
+      value: 
+      objectReference: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 19.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 44.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791055549980706670, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_Name
+      value: PowerUpBox (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
 --- !u!1 &1329895336
 GameObject:
   m_ObjectHideFlags: 0
@@ -6622,7 +6689,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 893099cddddc5b445885099910df7c32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7029,7 +7096,6 @@ GameObject:
   - component: {fileID: 1429405263}
   - component: {fileID: 1429405262}
   - component: {fileID: 1429405265}
-  - component: {fileID: 1429405266}
   m_Layer: 0
   m_Name: Porteria1(PH)
   m_TagString: Untagged
@@ -7114,19 +7180,6 @@ MeshFilter:
   m_GameObject: {fileID: 1429405260}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1429405265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429405260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2596af0cbaaaf204697cc75cc26443d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goalTeam: 0
---- !u!114 &1429405266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
