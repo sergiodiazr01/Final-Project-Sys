@@ -10,13 +10,14 @@ public enum PlayerTeam
 public class PlayerController : MonoBehaviour
 {
     public PlayerTeam team;
-    
+
     private bool isPoweredUp = false;     // Controla si tiene power-up activo
 
+    public GameObject goalShield;
     private void Start()
     {
-        
-        
+
+
     }
 
     public void ActivatePowerUp()
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-     private IEnumerator PowerUpCoroutine()
+    private IEnumerator PowerUpCoroutine()
     {
         isPoweredUp = true;
 
@@ -46,4 +47,41 @@ public class PlayerController : MonoBehaviour
     {
         return team;
     }
+
+    public void ActivateSizeBoost(float multiplier = 1.5f, float duration = 5f)
+    {
+        StartCoroutine(SizeBoostCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator SizeBoostCoroutine(float multiplier, float duration)
+    {
+        Vector3 originalScale = transform.localScale;
+        transform.localScale = originalScale * multiplier;
+
+        Debug.Log("¡Player aumentado!");
+
+        yield return new WaitForSeconds(duration);
+
+        transform.localScale = originalScale;
+        Debug.Log("Tamaño del player restaurado.");
+    }
+    
+    public void ActivateGoalShield(float duration = 5f)
+    {
+        if (goalShield != null)
+            StartCoroutine(ShieldCoroutine(duration));
+    }
+
+    private IEnumerator ShieldCoroutine(float duration)
+    {
+        goalShield.SetActive(true);
+        Debug.Log("Escudo activado en la portería de " + team);
+
+        yield return new WaitForSeconds(duration);
+
+        goalShield.SetActive(false);
+        Debug.Log("Escudo desactivado");
+    }
+
+
 }

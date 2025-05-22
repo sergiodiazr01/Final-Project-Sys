@@ -12,6 +12,8 @@ TagManager:
   - SpeedZone
   - wall
   - ReverseZone
+  - TeledirigidaZone
+  - InvertDirectionZone
   layers:
   - Default
   - TransparentFX

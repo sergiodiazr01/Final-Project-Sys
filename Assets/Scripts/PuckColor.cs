@@ -20,13 +20,18 @@ public class PuckColor : MonoBehaviour
     private bool isSpeedBoosted = false;
     private float speedBoostDuration = 3f;
 
-    private bool isReverseZone = false; 
-    public float reversaCooldownTime = 3f;
 
     public AudioClip hitByPlayerSound;
     public AudioClip wallBounceSound;
     private AudioSource audioSource;
 
+
+    public Transform redGoalTarget;
+    public Transform blueGoalTarget;
+    public float forceToGoal = 10f;
+
+    private bool isDirectionInverted = false;
+    public float invertDuration = 5f;
     void Start()
     {
         puckRenderer.material.color = defaultColor;
@@ -44,6 +49,11 @@ public class PuckColor : MonoBehaviour
             //float impactSpeed = collision.relativeVelocity.magnitude;
             //float scaledForce = impactSpeed * hitforce;
             //rb.AddForce(direction * scaledForce, ForceMode.Impulse);
+            if (isDirectionInverted)
+            {
+                direction.x *= -1f;
+                Debug.Log("Dirección horizontal invertida");
+            }
             rb.AddForce(direction * hitforce, ForceMode.Impulse);
             audioSource.PlayOneShot(hitByPlayerSound);
 
@@ -81,21 +91,35 @@ private void OnTriggerEnter(Collider other)
             rb.velocity *= speedZoneMultiplier;
             isSpeedBoosted = true;
         }
-        else if (other.CompareTag("ReverseZone"))
+        else if (other.CompareTag("InvertDirectionZone"))
         {
-            Debug.Log("Puck ha entrado en zona trampa");
+            Debug.Log("Puck ha entrado en zona de inversión de dirección horizontal");
+            StartCoroutine(InvertDirectionTemporarily());
+        }
+        else if (other.CompareTag("TeledirigidaZone") && lastPlayerTouched != null)
+        {
+            Debug.Log("Puck ha entrado en zona teledirigida");
+
+            PlayerTeam team = lastPlayerTouched.GetTeam();
+            Transform target;
+
+            if (team == PlayerTeam.Red)
+            {
+                target = blueGoalTarget;
+            }
+            else
+            {
+                target = redGoalTarget;
+            }
 
 
-            Vector3 currentDirection = rb.velocity.normalized;
-
+            Vector3 direction = (target.position - rb.position).normalized;
 
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            //fuerza hacia atras
-            rb.AddForce(-currentDirection * 15f, ForceMode.Impulse);
-            
+            rb.AddForce(direction * forceToGoal, ForceMode.Impulse);
         }
+
 }
 
     private void OnTriggerExit(Collider other)
@@ -119,6 +143,13 @@ private IEnumerator EndSpeedBoostAfterTime()
     isSpeedBoosted = false;
 
     Debug.Log("Puck vuelve a velocidad normal");
+}
+private IEnumerator InvertDirectionTemporarily()
+{
+    isDirectionInverted = true;
+    yield return new WaitForSeconds(invertDuration);
+    isDirectionInverted = false;
+    Debug.Log("Dirección del puck restaurada a normal");
 }
 
 }
