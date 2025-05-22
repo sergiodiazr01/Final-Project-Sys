@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("Menú y UI")]
     public GameObject menuCanvas;
     public GameObject gameObjects;
+    public GameObject scoreCanvas;
     public GameObject startButton;
     public Light directionalLight;
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         {
             if (menuCanvas != null) menuCanvas.SetActive(true);
             if (gameObjects != null) gameObjects.SetActive(false);
+            if (scoreCanvas != null)   scoreCanvas.SetActive(false);
             if (directionalLight != null) directionalLight.enabled = false;
         }
     }
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour
 
         // Activar zona de juego
         if (gameObjects != null) gameObjects.SetActive(true);
+
+        if (scoreCanvas != null)   scoreCanvas.SetActive(true);
 
         // Activar la luz de juego
         if (directionalLight != null) directionalLight.enabled = false;
@@ -98,6 +102,10 @@ public class GameManager : MonoBehaviour
     {
         winText.gameObject.SetActive(true);
         winText.text = message;
+
+         // Ocultar el marcador al acabar la partida
+        if (scoreCanvas != null)
+            scoreCanvas.SetActive(false);
 
         // aqui se puede parar el juego o meter animaciones o lo que sea
         Time.timeScale = 0f;
