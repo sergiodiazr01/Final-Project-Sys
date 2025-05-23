@@ -10,8 +10,12 @@ public class StartGameByHover : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Start");
         if (other.CompareTag("Player"))
+        {
             hovering = true;
+            Debug.Log("Start");
+        }
     }
 
     void OnTriggerExit(Collider other)
