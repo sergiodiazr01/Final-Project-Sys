@@ -12,6 +12,8 @@ public class PuckColor : MonoBehaviour
     public PlayerController lastPlayerTouched;
 
     public float speed = 10f;
+    public float maxVelocity = 20f;
+
     public float speedZoneMultiplier = 5f; // Multiplicador de velocidad en la zona de velocidad
 
     private Rigidbody rb;
@@ -19,7 +21,7 @@ public class PuckColor : MonoBehaviour
 
     private bool isSpeedBoosted = false;
     private float speedBoostDuration = 3f;
-
+    public float linearFriction = 0.99f; // 1 = sin fricción, 0 = freno total
 
     public AudioClip hitByPlayerSound;
     public AudioClip wallBounceSound;
@@ -39,11 +41,25 @@ public class PuckColor : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    void FixedUpdate()
+    {
+        // Aplicar fricción artificial
+        rb.velocity *= linearFriction;
+
+        // Limita la velocidad máxima
+        if (rb.velocity.magnitude > maxVelocity)
+        {
+            rb.velocity = rb.velocity.normalized * maxVelocity;
+        }
+    }
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
+            Debug.Log(lastPlayerTouched);
 
             Vector3 direction = (rb.position - collision.contacts[0].point).normalized;
             //float impactSpeed = collision.relativeVelocity.magnitude;
@@ -151,5 +167,17 @@ private IEnumerator InvertDirectionTemporarily()
     isDirectionInverted = false;
     Debug.Log("Dirección del puck restaurada a normal");
 }
+
+    public void ActivateAutoDestruct(float time)
+    {
+        StartCoroutine(AutoDestruct(time));
+    }
+
+    private IEnumerator AutoDestruct(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("Puck extra autodestruido");
+        Destroy(gameObject);
+    }
 
 }

@@ -12,12 +12,22 @@ public class PlayerController : MonoBehaviour
     public PlayerTeam team;
 
     private bool isPoweredUp = false;     // Controla si tiene power-up activo
-
+    private Vector3 originalScale;
+    private CapsuleCollider capsule;
+    private float originalHeight;
+    private float originalRadius;
     public GameObject goalShield;
+    public bool isSizeBoosted = false;
+    
     private void Start()
     {
-
-
+        originalScale = transform.localScale;
+        capsule = GetComponent<CapsuleCollider>();
+        if (capsule != null)
+        {
+            originalHeight = capsule.height;
+            originalRadius = capsule.radius;
+        }
     }
 
     public void ActivatePowerUp()
@@ -50,13 +60,21 @@ public class PlayerController : MonoBehaviour
 
     public void ActivateSizeBoost(float multiplier = 1.5f, float duration = 5f)
     {
+        if (isSizeBoosted) return;
         StartCoroutine(SizeBoostCoroutine(multiplier, duration));
     }
 
     private IEnumerator SizeBoostCoroutine(float multiplier, float duration)
     {
+        isSizeBoosted = true;
         Vector3 originalScale = transform.localScale;
         transform.localScale = originalScale * multiplier;
+        // Aumentar también el collider
+        if (capsule != null)
+        {
+            capsule.height = originalHeight * multiplier;
+            capsule.radius = originalRadius * multiplier;
+        }
 
         Debug.Log("¡Player aumentado!");
 
@@ -64,6 +82,13 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = originalScale;
         Debug.Log("Tamaño del player restaurado.");
+        // Restaurar collider
+        if (capsule != null)
+        {
+            capsule.height = originalHeight;
+            capsule.radius = originalRadius;
+        }
+        isSizeBoosted = false;
     }
     
     public void ActivateGoalShield(float duration = 5f)

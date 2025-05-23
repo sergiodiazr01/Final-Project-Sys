@@ -1089,7 +1089,7 @@ Transform:
   m_LocalPosition: {x: -3.857148, y: -18.456955, z: -45.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1685503099}
+  - {fileID: 1233049386}
   - {fileID: 238713331}
   - {fileID: 493165475}
   - {fileID: 11427230}
@@ -3576,6 +3576,7 @@ GameObject:
   - component: {fileID: 564666846}
   - component: {fileID: 564666845}
   - component: {fileID: 564666847}
+  - component: {fileID: 564666848}
   m_Layer: 0
   m_Name: Player1M
   m_TagString: Player
@@ -3614,6 +3615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   goalShield: {fileID: 1003575697}
+  isSizeBoosted: 0
 --- !u!114 &564666846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3641,6 +3643,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9404964, y: 25.955513, z: 2.175695}
   m_Center: {x: 0.07201281, y: -12.874767, z: 0.09082399}
+--- !u!136 &564666848
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564666843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &569510989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5172,6 +5188,10 @@ PrefabInstance:
       propertyPath: extraPuckPrefab
       value: 
       objectReference: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+    - target: {fileID: 6980027947970754763, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -6662,6 +6682,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 526875295441307775, guid: 2fa414833d1233341914b51102208fc8, type: 3}
   m_PrefabInstance: {fileID: 763416861}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1233049385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233049386}
+  m_Layer: 0
+  m_Name: puckContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233049386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233049385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1685503099}
+  m_Father: {fileID: 133621815}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1233966377
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,7 +7273,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1390965819}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -7928,6 +7979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   goalShield: {fileID: 1003575697}
+  isSizeBoosted: 0
 --- !u!1 &1448092806
 GameObject:
   m_ObjectHideFlags: 0
@@ -8342,6 +8394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   goalShield: {fileID: 158456708}
+  isSizeBoosted: 0
 --- !u!1 &1473063721
 GameObject:
   m_ObjectHideFlags: 0
@@ -9417,7 +9470,7 @@ MonoBehaviour:
   scoreCanvas: {fileID: 1996503815}
   startButton: {fileID: 1167793542}
   directionalLight: {fileID: 0}
-  skipMenu: 0
+  skipMenu: 1
   mapSelector: {fileID: 3154528893189374806}
   powerUpOption: {fileID: 3154528894436469925}
   obstacleOption: {fileID: 3154528892915969828}
@@ -9425,6 +9478,9 @@ MonoBehaviour:
   powerUpEnabled: 0
   obstacleEnabled: 0
   specialZoneEnabled: 0
+  puckContainer: {fileID: 1233049386}
+  intervalGame: 5
+  shockwavePrefab: {fileID: 391415548098856820, guid: 6b444ee599c688a48aed5756b13379f1, type: 3}
 --- !u!1001 &1592074213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10252,9 +10308,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 133621815}
     m_Modifications:
     - target: {fileID: -5899584724072886511, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: puckContainer
+      value: 
+      objectReference: {fileID: 1233049386}
+    - target: {fileID: -5899584724072886511, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
       propertyPath: extraPuckPrefab
       value: 
       objectReference: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+    - target: {fileID: 6980027947970754763, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7791055549980706659, guid: ac5a26dc26df9284bbab4635826ea361, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -11448,7 +11512,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 133621815}
+    m_TransformParent: {fileID: 1233049386}
     m_Modifications:
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_RootOrder

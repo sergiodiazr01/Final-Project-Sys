@@ -4,7 +4,20 @@ public class PowerUpBox : MonoBehaviour
 {
     
     public GameObject extraPuckPrefab;
-   
+    public float extraPuckLifetime = 50f; // Tiempo que el puck extra estará activo
+    public Transform puckContainer; // Donde guardamos los pucks
+
+    private void Start()
+    {
+        if (puckContainer == null)
+        {
+            GameObject container = GameObject.Find("puckContainer");
+            if (container != null)
+            {
+                puckContainer = container.transform;
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,10 +28,11 @@ public class PowerUpBox : MonoBehaviour
             // Activar power-up al jugador
             //puck.lastPlayerTouched.ActivatePowerUp();
 
+            int randomPower = Random.Range(1, 4);
+            // Forzar solo powerup boxes
+            randomPower = 3;
 
-            int randomPower = Random.Range(1,4);
-
-                if (randomPower == 1)
+            if (randomPower == 1)
                 {
                     PuckColor puckScript = other.GetComponentInParent<PuckColor>();
                     if (puckScript != null && puckScript.lastPlayerTouched != null)
@@ -30,6 +44,12 @@ public class PowerUpBox : MonoBehaviour
                 {
                     
                     GameObject newPuck = Instantiate(extraPuckPrefab, other.transform.position, Quaternion.identity);
+
+                    if (puckContainer != null)
+                    {
+                        newPuck.transform.SetParent(puckContainer);
+                    }
+
                     Rigidbody rb = newPuck.GetComponent<Rigidbody>();
                     PuckColor puckScript = newPuck.GetComponent<PuckColor>();
                     if (puckScript != null)
@@ -49,7 +69,9 @@ public class PowerUpBox : MonoBehaviour
                     }
                     
                     Debug.Log("Nuevo puck creado");
-                }
+
+                    puckScript.ActivateAutoDestruct(extraPuckLifetime);
+            }
                 else if (randomPower == 3)
                 {
                     PuckColor puckScript = other.GetComponentInParent<PuckColor>();

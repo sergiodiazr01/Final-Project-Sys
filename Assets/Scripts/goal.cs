@@ -23,6 +23,7 @@ public class goal : MonoBehaviour
 
             // Iniciar respawn del nuevo puck
             GameManager.instance.RespawnPuck();
+            GameManager.instance.TriggerShockwave(transform.position);
 
         }
     }

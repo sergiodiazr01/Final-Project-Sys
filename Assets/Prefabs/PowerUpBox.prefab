@@ -74,7 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9500aa1ac7406184981be6bc860ff9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  extraPuckPrefab: {fileID: 4207101930163263109, guid: fd96d2499a7977b49a807e910cd53bf1, type: 3}
+  extraPuckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+  extraPuckLifetime: 10
+  puckContainer: {fileID: 0}
 --- !u!1001 &7791055549093987738
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -38,6 +38,13 @@ public class GameManager : MonoBehaviour
     public bool obstacleEnabled = false;
     public bool specialZoneEnabled = false;
 
+    [Header("Contenedor de pucks")]
+    public Transform puckContainer;
+
+    [Header("Intervalo entre goles")]
+    public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
+    public GameObject shockwavePrefab;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void GoalScored(PlayerTeam scoringTeam)
     {
+
         if (scoringTeam == PlayerTeam.Red)
             redScore++;
         else
@@ -128,6 +136,26 @@ public class GameManager : MonoBehaviour
     private IEnumerator RespawnPuckCoroutine(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Instantiate(puckPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity);
+        // Eliminar todos los pucks existentes en el contenedor
+        if (puckContainer != null)
+        {
+            foreach (Transform child in puckContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        yield return new WaitForSeconds(intervalGame);
+
+        GameObject newPuck = Instantiate(puckPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity);
+        if (puckContainer != null)
+        {
+            newPuck.transform.SetParent(puckContainer);
+        }
+    }
+
+    public void TriggerShockwave(Vector3 position)
+    {
+        Instantiate(shockwavePrefab, position, Quaternion.Euler(90f, 0f, 0f));
     }
 }
