@@ -4,7 +4,7 @@ public class PowerUpBox : MonoBehaviour
 {
     
     public GameObject extraPuckPrefab;
-    public float extraPuckLifetime = 50f; // Tiempo que el puck extra estará activo
+    public float extraPuckLifetime = 5f; // Tiempo que el puck extra estará activo
     public Transform puckContainer; // Donde guardamos los pucks
 
     private void Start()
