@@ -30,7 +30,7 @@ public class PowerUpBox : MonoBehaviour
 
             int randomPower = Random.Range(1, 4);
             // Forzar solo powerup boxes
-            randomPower = 3;
+            // randomPower = 3;
 
             if (randomPower == 1)
                 {
