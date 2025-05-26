@@ -1,124 +1,143 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PuckColor : MonoBehaviour
 {
+    #region Inspector ▸ Puck
+    [Header("Puck Settings")]
     public Renderer puckRenderer;
-
     public Color defaultColor = Color.white;
-    public Color redPlayerColor = Color.red;
-    public Color bluePlayerColor = Color.blue;
+    public Color redPlayerColor   = Color.red;
+    public Color bluePlayerColor  = Color.blue;
     public PlayerController lastPlayerTouched;
+    #endregion
 
-    public float speed = 10f;
-    public float speedZoneMultiplier = 5f; // Multiplicador de velocidad en la zona de velocidad
+    #region Inspector ▸ Physics
+    public float hitforce = 100f;                 // Fuerza del golpe
+    public float speedZoneMultiplier = 5f;        // Boost en zona de velocidad
+    private const float speedBoostDuration = 3f;  // Duración del boost
+    #endregion
 
-    private Rigidbody rb;
-    public float hitforce = 100f; // Fuerza de golpeo del puck
-
-    private bool isSpeedBoosted = false;
-    private float speedBoostDuration = 3f;
-
-    private bool isReverseZone = false; 
-    public float reversaCooldownTime = 3f;
-
+    #region Inspector ▸ Audio
     public AudioClip hitByPlayerSound;
     public AudioClip wallBounceSound;
+    #endregion
+
+    #region Inspector ▸ Hit FX (Onomatopoeia)
+    [Tooltip("Prefabs con TextMeshPro que muestran BAM / PUM / ¡POW! …")]
+    public GameObject[] hitOnomatopoeiaPrefabs;
+    [Tooltip("Separación para evitar que el texto se incruste en la superficie")]
+    public float onomatopoeiaSurfaceOffset = 0.06f;
+    public float onomatopoeiaLifetime      = 1.2f;
+
+    [Header("Orientación del texto")]
+    [Tooltip("Giro en X que tumba el texto para verse perfectamente desde arriba (90° por defecto)")]
+    public float textPitch = 90f;
+    [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Rojo → apunta a su lado")] 
+    public float redYaw  =  90f;
+    [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Azul → apunta a su lado")] 
+    public float blueYaw = -90f;
+    #endregion
+
+    private Rigidbody   rb;
     private AudioSource audioSource;
 
+    // -------------------------------------------------- UNITY --------------------------------------------------
     void Start()
     {
         puckRenderer.material.color = defaultColor;
-        rb = GetComponent<Rigidbody>();
+        rb          = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // 1. ¿Colisionó con un jugador?
+        if (!IsPlayer(collision.gameObject))
         {
-            lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
-
-            Vector3 direction = (rb.position - collision.contacts[0].point).normalized;
-            //float impactSpeed = collision.relativeVelocity.magnitude;
-            //float scaledForce = impactSpeed * hitforce;
-            //rb.AddForce(direction * scaledForce, ForceMode.Impulse);
-            rb.AddForce(direction * hitforce, ForceMode.Impulse);
-            audioSource.PlayOneShot(hitByPlayerSound);
-
-            /*if (collision.gameObject.CompareTag("PlayerRed"))
-            {
-                Debug.Log("a");
-                puckRenderer.material.color = redPlayerColor;
-            }
-            else if (collision.gameObject.CompareTag("PlayerBlue"))
-            {
-                puckRenderer.material.color = bluePlayerColor;
-            }*/
-            if (lastPlayerTouched != null)
-            {
-                if (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
-                    puckRenderer.material.color = redPlayerColor;
-                else if (lastPlayerTouched.GetTeam() == PlayerTeam.Blue)
-                    puckRenderer.material.color = bluePlayerColor;
-            }
-
-        }
-        else if (collision.gameObject.CompareTag("wall"))
-        {
-            if (audioSource != null && wallBounceSound != null)
+            // Pared u otro objeto
+            if (collision.gameObject.CompareTag("wall") && audioSource && wallBounceSound)
                 audioSource.PlayOneShot(wallBounceSound);
+            return;
         }
 
-}
-private void OnTriggerEnter(Collider other)
-{
-        if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
-        {
-            Debug.Log("Puck ha entrado en zona de velocidad");
+        // 2. Aplicar fuerza al puck
+        lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
+        Vector3 direction = (rb.position - collision.contacts[0].point).normalized;
+        rb.AddForce(direction * hitforce, ForceMode.Impulse);
+        if (audioSource && hitByPlayerSound) audioSource.PlayOneShot(hitByPlayerSound);
 
+        // 3. Cambiar color del puck según equipo
+        if (lastPlayerTouched != null)
+        {
+            puckRenderer.material.color = (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
+                                          ? redPlayerColor
+                                          : bluePlayerColor;
+        }
+
+        // 4. FX (onomatopeya)
+        SpawnHitFX(collision.contacts[0]);
+    }
+
+    // -------------------------------------------------- FX --------------------------------------------------
+    void SpawnHitFX(ContactPoint contact)
+    {
+        if (hitOnomatopoeiaPrefabs == null || hitOnomatopoeiaPrefabs.Length == 0) return;
+        int prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
+
+        // Posición exacta del impacto, desplazada hacia afuera
+        Vector3 spawnPos = contact.point + contact.normal * onomatopoeiaSurfaceOffset;
+
+        // Yaw depende del último jugador que tocó el puck
+        float yaw = 0f;
+        if (lastPlayerTouched != null)
+            yaw = (lastPlayerTouched.GetTeam() == PlayerTeam.Red) ? redYaw : blueYaw;
+
+        // Rotación final:   (pitch ,  yaw , roll)  -> sólo utilizamos pitch y yaw
+        Quaternion rot = Quaternion.Euler(textPitch, yaw, 0f);
+
+        // Instancia del FX
+        GameObject fx = Instantiate(hitOnomatopoeiaPrefabs[prefabIndex], spawnPos, rot);
+
+        // Color del texto según equipo
+        TextMeshPro tmp = fx.GetComponentInChildren<TextMeshPro>();
+        if (tmp != null)
+            tmp.color = (lastPlayerTouched != null && lastPlayerTouched.GetTeam() == PlayerTeam.Red)
+                         ? redPlayerColor
+                         : bluePlayerColor;
+
+        Destroy(fx, onomatopoeiaLifetime);
+    }
+
+    // -------------------------------------------------- ZONAS ESPECIALES --------------------------------------------------
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SpeedZone") && !speedBoostCoroutineRunning)
+        {
             rb.velocity *= speedZoneMultiplier;
-            isSpeedBoosted = true;
+            StartCoroutine(EndSpeedBoostAfterTime());
         }
         else if (other.CompareTag("ReverseZone"))
         {
-            Debug.Log("Puck ha entrado en zona trampa");
-
-
-            Vector3 currentDirection = rb.velocity.normalized;
-
-
-            rb.velocity = Vector3.zero;
+            Vector3 dir = rb.velocity.normalized;
+            rb.velocity        = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            //fuerza hacia atras
-            rb.AddForce(-currentDirection * 15f, ForceMode.Impulse);
-            
+            rb.AddForce(-dir * 15f, ForceMode.Impulse);
         }
-}
+    }
 
-    private void OnTriggerExit(Collider other)
+    private bool speedBoostCoroutineRunning = false;
+    private IEnumerator EndSpeedBoostAfterTime()
     {
-        if (other.CompareTag("SpeedZone"))
-        {
-            Debug.Log("Puck ha salido de la zona de velocidad");
+        speedBoostCoroutineRunning = true;
+        yield return new WaitForSeconds(speedBoostDuration);
+        rb.velocity /= speedZoneMultiplier;
+        speedBoostCoroutineRunning = false;
+    }
 
-            // Al salir, empieza el conteo para volver a velocidad normal
-            StartCoroutine(EndSpeedBoostAfterTime());
-        }
-        
-}
-
-private IEnumerator EndSpeedBoostAfterTime()
-{
-    yield return new WaitForSeconds(speedBoostDuration);
-
-    // Reducir la velocidad (de forma proporcional)
-    rb.velocity /= speedZoneMultiplier;
-    isSpeedBoosted = false;
-
-    Debug.Log("Puck vuelve a velocidad normal");
-}
-
+    // -------------------------------------------------- HELPERS --------------------------------------------------
+    private bool IsPlayer(GameObject go) =>
+        go.CompareTag("Player") || go.CompareTag("PlayerRed") || go.CompareTag("PlayerBlue");
 }
