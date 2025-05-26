@@ -39,6 +39,17 @@ public class PuckColor : MonoBehaviour
         puckRenderer.material.color = defaultColor;
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        if (redGoalTarget == null)
+        {
+            GameObject red = GameObject.Find("redGoal");
+            if (red != null) redGoalTarget = red.transform;
+        }
+
+        if (blueGoalTarget == null)
+        {
+            GameObject blue = GameObject.Find("blueGoal");
+            if (blue != null) blueGoalTarget = blue.transform;
+        }
     }
 
     void FixedUpdate()
