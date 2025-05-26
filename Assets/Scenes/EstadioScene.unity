@@ -11981,6 +11981,14 @@ PrefabInstance:
       propertyPath: blueGoalTarget
       value: 
       objectReference: {fileID: 397555218}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: hitOnomatopoeiaPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: hitOnomatopoeiaPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
     - target: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_Name
       value: Puck1

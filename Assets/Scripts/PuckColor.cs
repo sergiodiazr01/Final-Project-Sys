@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PuckColor : MonoBehaviour
 {
     public Renderer puckRenderer;
@@ -34,6 +34,21 @@ public class PuckColor : MonoBehaviour
 
     private bool isDirectionInverted = false;
     public float invertDuration = 5f;
+
+    [Tooltip("Prefabs con TextMeshPro que muestran BAM / PUM / ¡POW! …")]
+    public GameObject[] hitOnomatopoeiaPrefabs;
+    [Tooltip("Separación para evitar que el texto se incruste en la superficie")]
+    public float onomatopoeiaSurfaceOffset = 0.06f;
+    public float onomatopoeiaLifetime      = 1.2f;
+
+    [Header("Orientación del texto")]
+    [Tooltip("Giro en X que tumba el texto para verse perfectamente desde arriba (90° por defecto)")]
+    public float textPitch = 90f;
+    [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Rojo → apunta a su lado")] 
+    public float redYaw  =  90f;
+    [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Azul → apunta a su lado")] 
+    public float blueYaw = -90f;
+
     void Start()
     {
         puckRenderer.material.color = defaultColor;
@@ -100,7 +115,8 @@ public class PuckColor : MonoBehaviour
                 else if (lastPlayerTouched.GetTeam() == PlayerTeam.Blue)
                     puckRenderer.material.color = bluePlayerColor;
             }
-
+            // Spawn hit FX
+            SpawnHitFX(collision.contacts[0]);
         }
         else if (collision.gameObject.CompareTag("wall"))
         {
@@ -108,9 +124,40 @@ public class PuckColor : MonoBehaviour
                 audioSource.PlayOneShot(wallBounceSound);
         }
 
-}
-private void OnTriggerEnter(Collider other)
-{
+
+    }
+
+    void SpawnHitFX(ContactPoint contact)
+        {
+            if (hitOnomatopoeiaPrefabs == null || hitOnomatopoeiaPrefabs.Length == 0) return;
+            int prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
+
+            // Posición exacta del impacto, desplazada hacia afuera
+            Vector3 spawnPos = contact.point + contact.normal * onomatopoeiaSurfaceOffset;
+
+            // Yaw depende del último jugador que tocó el puck
+            float yaw = 0f;
+            if (lastPlayerTouched != null)
+                yaw = (lastPlayerTouched.GetTeam() == PlayerTeam.Red) ? redYaw : blueYaw;
+
+            // Rotación final:   (pitch ,  yaw , roll)  -> sólo utilizamos pitch y yaw
+            Quaternion rot = Quaternion.Euler(textPitch, yaw, 0f);
+
+            // Instancia del FX
+            GameObject fx = Instantiate(hitOnomatopoeiaPrefabs[prefabIndex], spawnPos, rot);
+
+            // Color del texto según equipo
+            TextMeshPro tmp = fx.GetComponentInChildren<TextMeshPro>();
+            if (tmp != null)
+                tmp.color = (lastPlayerTouched != null && lastPlayerTouched.GetTeam() == PlayerTeam.Red)
+                            ? redPlayerColor
+                            : bluePlayerColor;
+
+            Destroy(fx, onomatopoeiaLifetime);
+        }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
         {
             Debug.Log("Puck ha entrado en zona de velocidad");
@@ -147,7 +194,7 @@ private void OnTriggerEnter(Collider other)
             rb.AddForce(direction * forceToGoal, ForceMode.Impulse);
         }
 
-}
+    }
 
     private void OnTriggerExit(Collider other)
     {

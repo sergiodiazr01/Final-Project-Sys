@@ -164,14 +164,23 @@ MonoBehaviour:
   bluePlayerColor: {r: 0, g: 0, b: 1, a: 1}
   lastPlayerTouched: {fileID: 0}
   speed: 5
+  maxVelocity: 20
   speedZoneMultiplier: 2
   hitforce: 50
+  linearFriction: 0.99
   hitByPlayerSound: {fileID: 8300000, guid: b86ec43a0614c8645b6d7e2f4b656efd, type: 3}
   wallBounceSound: {fileID: 8300000, guid: 6675d5777f20a07418be7bf0b83cdf82, type: 3}
   redGoalTarget: {fileID: 0}
   blueGoalTarget: {fileID: 0}
   forceToGoal: 100
   invertDuration: 5
+  hitOnomatopoeiaPrefabs:
+  - {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
+  onomatopoeiaSurfaceOffset: 0.06
+  onomatopoeiaLifetime: 1.2
+  textPitch: 90
+  redYaw: 90
+  blueYaw: -90
 --- !u!82 &4370923268126289884
 AudioSource:
   m_ObjectHideFlags: 0
