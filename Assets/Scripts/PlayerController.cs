@@ -18,7 +18,22 @@ public class PlayerController : MonoBehaviour
     private float originalRadius;
     public GameObject goalShield;
     public bool isSizeBoosted = false;
-    
+
+    //variables crecimiento porteria
+    public Transform ownGoal;                // Asignar portería desde el Inspector
+    public float proximityDistance = 10f;    // Distancia para empezar a contar
+    public float timeToGrow = 5f;            // Tiempo que debe estar cerca
+    public float enlargedZScale = 22f;        // Valor Z al que crecerá la portería
+    public float resizeDuration = 3f;        // Tiempo de la animación
+
+    private float timeNearGoal = 0f;
+    private bool isGrowing = false;
+    private Coroutine resizeCoroutine = null;
+    private Vector3 originalGoalScale;
+
+
+
+
     private void Start()
     {
         originalScale = transform.localScale;
@@ -28,7 +43,71 @@ public class PlayerController : MonoBehaviour
             originalHeight = capsule.height;
             originalRadius = capsule.radius;
         }
+        if (ownGoal != null)
+        {
+            originalGoalScale = ownGoal.localScale;
+        }
+        
     }
+
+    void Update()
+    {
+        if (ownGoal == null) return;
+
+        float distance = Vector3.Distance(transform.position, ownGoal.position);
+
+        if (distance < proximityDistance)
+        {
+            timeNearGoal += Time.deltaTime;
+            Debug.Log($"[PORTERÍA] Cerca durante {timeNearGoal:F2}s");
+
+            if (!isGrowing && timeNearGoal >= timeToGrow)
+            {
+                if (resizeCoroutine != null) StopCoroutine(resizeCoroutine);
+                resizeCoroutine = StartCoroutine(ResizeGoalZ(originalGoalScale.z, enlargedZScale));
+                isGrowing = true;
+
+                Debug.Log("[PORTERÍA] Creciendo...");
+            }
+        }
+        else
+        {
+            if (timeNearGoal > 0f)
+            {
+                Debug.Log("[PORTERÍA] Jugador se ha alejado, contador reiniciado");
+            }
+
+            timeNearGoal = 0f;
+
+            if (isGrowing)
+            {
+                if (resizeCoroutine != null) StopCoroutine(resizeCoroutine);
+                resizeCoroutine = StartCoroutine(ResizeGoalZ(ownGoal.localScale.z, originalGoalScale.z));
+                isGrowing = false;
+
+                Debug.Log("[PORTERÍA] Volviendo al tamaño original...");
+            }
+        }
+    }
+
+    private IEnumerator ResizeGoalZ(float fromZ, float toZ)
+    {
+        float elapsed = 0f;
+        Vector3 startScale = ownGoal.localScale;
+        Vector3 targetScale = new Vector3(startScale.x, startScale.y, toZ);
+
+        while (elapsed < resizeDuration)
+        {
+            float t = elapsed / resizeDuration;
+            float newZ = Mathf.Lerp(fromZ, toZ, t);
+            ownGoal.localScale = new Vector3(startScale.x, startScale.y, newZ);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        ownGoal.localScale = targetScale;
+    }
+
 
     public void ActivatePowerUp()
     {

@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     public Quaternion q;
     public bool manual;
+    public bool insideValidZone;
+    private PlayerController playerController;
+
+
     void Start()
     {
-
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -19,10 +23,31 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((playerController.team == PlayerTeam.Red && other.CompareTag("RedMitad")) ||
+            (playerController.team == PlayerTeam.Blue && other.CompareTag("BlueMitad")))
+        {
+            insideValidZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if ((playerController.team == PlayerTeam.Red && other.CompareTag("RedMitad")) ||
+            (playerController.team == PlayerTeam.Blue && other.CompareTag("BlueMitad")))
+        {
+            insideValidZone = false;
+        }
+    }
     // Setter for position
     public void SetPosition(Vector3 pos)
     {
-        transform.position = pos;
+        if (insideValidZone==true)
+        {
+            transform.position = pos;
+        }
+        
     }
 
     // Getter for position
