@@ -3169,7 +3169,7 @@ MonoBehaviour:
   proximityDistance: 10
   timeToGrow: 5
   enlargedZScale: 50
-  resizeDuration: 1
+  resizeDuration: 3
 --- !u!114 &463686143
 MonoBehaviour:
   m_ObjectHideFlags: 0
