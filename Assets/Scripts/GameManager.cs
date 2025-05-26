@@ -154,8 +154,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TriggerShockwave(Vector3 position)
+    public void TriggerShockwave(Vector3 position, Color color)
     {
-        Instantiate(shockwavePrefab, position, Quaternion.Euler(90f, 0f, 0f));
+        GameObject waveObject = Instantiate(shockwavePrefab, position, Quaternion.Euler(90f, 0f, 0f));
+        Debug.Log("a");
+        ShockWave shockWave = waveObject.GetComponent<ShockWave>();
+        Debug.Log("aa");
+        shockWave.SetColor(color);
+        Debug.Log("aaa");
     }
 }

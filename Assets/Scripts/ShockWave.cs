@@ -10,11 +10,18 @@ public class ShockWave : MonoBehaviour
     private Material mat;
     private Color originalColor;
 
+    public void SetColor(Color c)
+    {
+        originalColor = c;
+        Debug.Log(originalColor);
+    }
+
     void Start()
     {
         Transform wave = transform.GetChild(0);
         mat = wave.GetComponent<Renderer>().material;
-        originalColor = mat.color;
+        // originalColor = mat.color;
+        mat.color = originalColor;
         wave.localScale = Vector3.zero;
     }
 
@@ -25,11 +32,11 @@ public class ShockWave : MonoBehaviour
         elapsed += Time.deltaTime;
         float t = elapsed / duration;
 
-        // Expand
+        // Expansión
         float scale = Mathf.Lerp(0f, maxScale, t);
-        transform.GetChild(0).localScale = new Vector3(scale*2, 1f, scale);
+        transform.GetChild(0).localScale = new Vector3(scale, 1f, scale);
 
-        // Fade out
+        // Desaparición
         Color newColor = originalColor;
         newColor.a = Mathf.Lerp(originalColor.a, 0f, t);
         mat.color = newColor;

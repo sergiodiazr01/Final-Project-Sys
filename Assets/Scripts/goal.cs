@@ -23,7 +23,17 @@ public class goal : MonoBehaviour
 
             // Iniciar respawn del nuevo puck
             GameManager.instance.RespawnPuck();
-            GameManager.instance.TriggerShockwave(transform.position);
+
+            // Elegir color contrario a la portería
+            Color waveColor;
+            if (goalTeam == PlayerTeam.Red)
+            {
+                waveColor = new Color(0f, 0f, 255f/ 188f);  // onda azul
+            } else
+            {
+                waveColor = new Color(255f, 0f, 0f/ 188f); // onda roja
+            }
+            GameManager.instance.TriggerShockwave(transform.position, waveColor);
 
         }
     }
