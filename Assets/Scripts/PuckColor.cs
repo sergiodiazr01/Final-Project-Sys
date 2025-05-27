@@ -197,7 +197,7 @@ public class PuckColor : MonoBehaviour
                 rb.velocity = finalDir * reboundForce;
                 rb.angularVelocity = -rb.angularVelocity;
 
-                Debug.Log("🚀 Rebote rápido aplicado con fuerza: " + reboundForce);
+                
             }
         }
 

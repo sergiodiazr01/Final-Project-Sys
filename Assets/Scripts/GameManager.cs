@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
     public GameObject shockwavePrefab;
 
+    public GameObject victoryCanvas;
+    public TextMeshProUGUI victoryText;
+
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -63,7 +67,14 @@ public class GameManager : MonoBehaviour
             if (gameObjects != null) gameObjects.SetActive(false);
             if (scoreCanvas != null) scoreCanvas.SetActive(false);
             if (directionalLight != null) directionalLight.enabled = false;
+            if (victoryCanvas != null) victoryCanvas.SetActive(false);  
+        
+          
+        
         }
+      
+            
+
     }
 
     public void StartGame()
@@ -84,6 +95,7 @@ public class GameManager : MonoBehaviour
 
         // Activar la luz de juego
         if (directionalLight != null) directionalLight.enabled = false;
+        
     }
 
     public void GoalScored(PlayerTeam scoringTeam)
@@ -97,9 +109,9 @@ public class GameManager : MonoBehaviour
         UpdateUI();
 
         if (redScore >= scoreToWin)
-            ShowWin("¡Gana el equipo ROJO!");
+            ShowWin("RED wins!");
         else if (blueScore >= scoreToWin)
-            ShowWin("¡Gana el equipo AZUL!");
+            ShowWin("BLUE wins!");
     }
 
     void UpdateUI()
@@ -110,23 +122,45 @@ public class GameManager : MonoBehaviour
 
     void ShowWin(string message)
     {
-        winText.gameObject.SetActive(true);
-        winText.text = message;
+        // Mostrar mensaje de victoria
+        if (victoryText != null)
+        {
+            victoryText.text = message;
+            victoryText.color = message.Contains("RED") ? Color.red : Color.blue;
+        }
 
-        // Ocultar el marcador al acabar la partida
+        // Activar el panel de victoria
+        if (victoryCanvas != null)
+            victoryCanvas.SetActive(true);
+
+        // Ocultar el marcador y otros elementos
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
 
-        // aqui se puede parar el juego o meter animaciones o lo que sea
+        if (gameObjects != null)
+            gameObjects.SetActive(false);
+
+        if (directionalLight != null)
+        {
+            directionalLight.enabled = false;
+        }
+        
+        // Pausar el juego
         Time.timeScale = 0f;
-
-        // Volver al menú
-        if (menuCanvas != null) menuCanvas.SetActive(true);
-        if (gameObjects != null) gameObjects.SetActive(false);
-
-        // Apagar la luz del juego
-        if (directionalLight != null) directionalLight.enabled = false;
     }
+
+    public void ReturnToMenu()
+    {
+        // Restaurar el tiempo
+        Time.timeScale = 1f;
+
+        // Mostrar menú y ocultar victoria
+        if (victoryCanvas != null)
+            victoryCanvas.SetActive(false);
+        if (menuCanvas != null)
+            menuCanvas.SetActive(true);
+    }
+
     
     public void RespawnPuck(float delay = 1f)
     {
