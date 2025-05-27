@@ -35,6 +35,10 @@ public class PuckColor : MonoBehaviour
     private bool isDirectionInverted = false;
     public float invertDuration = 5f;
 
+    private bool wasInRepulsorZone = false;
+    private Vector3 lastDirectionBeforeZone;
+
+
     [Tooltip("Prefabs con TextMeshPro que muestran BAM / PUM / ¡POW! …")]
     public GameObject[] hitOnomatopoeiaPrefabs;
     [Tooltip("Separación para evitar que el texto se incruste en la superficie")]
@@ -48,6 +52,8 @@ public class PuckColor : MonoBehaviour
     public float redYaw  =  90f;
     [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Azul → apunta a su lado")] 
     public float blueYaw = -90f;
+
+
 
     void Start()
     {
@@ -165,11 +171,25 @@ public class PuckColor : MonoBehaviour
             rb.velocity *= speedZoneMultiplier;
             isSpeedBoosted = true;
         }
-        else if (other.CompareTag("InvertDirectionZone"))
+        else if (other.CompareTag("RepulsorZone"))
         {
-            Debug.Log("Puck ha entrado en zona de inversión de dirección horizontal");
-            StartCoroutine(InvertDirectionTemporarily());
+            Debug.Log("Puck ha entrado en RepulsorZone");
+
+            if (rb.velocity.magnitude > 0.1f)
+            {
+                Vector3 baseDir = -rb.velocity.normalized;
+                Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0f, Random.Range(-0.5f, 0.5f));
+                Vector3 finalDir = (baseDir + randomOffset).normalized;
+
+                float reboundForce = rb.velocity.magnitude * 2.2f; 
+
+                rb.velocity = finalDir * reboundForce;
+                rb.angularVelocity = -rb.angularVelocity;
+
+                Debug.Log("🚀 Rebote rápido aplicado con fuerza: " + reboundForce);
+            }
         }
+
         else if (other.CompareTag("TeledirigidaZone") && lastPlayerTouched != null)
         {
             Debug.Log("Puck ha entrado en zona teledirigida");
@@ -205,6 +225,8 @@ public class PuckColor : MonoBehaviour
             // Al salir, empieza el conteo para volver a velocidad normal
             StartCoroutine(EndSpeedBoostAfterTime());
         }
+
+
         
 }
 

@@ -16,6 +16,7 @@ TagManager:
   - InvertDirectionZone
   - BlueMitad
   - RedMitad
+  - RepulsorZone
   layers:
   - Default
   - TransparentFX
