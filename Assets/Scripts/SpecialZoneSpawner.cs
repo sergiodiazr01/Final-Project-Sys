@@ -14,6 +14,8 @@ public class SpecialZoneSpawner : MonoBehaviour
     public float spawnInterval = 15f;   // Tiempo entre cada aparición
     public float zoneLifetime = 10f;    // Cuánto dura cada zona
 
+    public Transform generatedElements;
+
     private void Start()
     {
         InvokeRepeating(nameof(SpawnZone), 3f, spawnInterval);
@@ -55,10 +57,10 @@ public class SpecialZoneSpawner : MonoBehaviour
             int index = Random.Range(0, zonePrefabs.Length);
             GameObject prefab = zonePrefabs[index];
 
-            GameObject zone = Instantiate(prefab, spawnPos, Quaternion.identity);
+            GameObject zone = Instantiate(prefab, spawnPos, Quaternion.identity, generatedElements);
             Destroy(zone, zoneLifetime);
 
-            Debug.Log($"✅ Zona instanciada: {prefab.name} en {spawnPos}");
+            Debug.Log($"Zona instanciada: {prefab.name} en {spawnPos}");
             return;
         }
     }
