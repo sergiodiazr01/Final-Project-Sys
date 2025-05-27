@@ -32,7 +32,7 @@ public class TrackingManager : MonoBehaviour
 
     //Players objects reference
     [Header("Player Objects")]
-    [SerializeField] private List<GameObject> players;
+    [SerializeField] public List<GameObject> players;
 
     //Calibration path information
     [Header("Calibration File Path")]
