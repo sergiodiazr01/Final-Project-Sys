@@ -125,6 +125,13 @@ public class GameManager : MonoBehaviour
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
 
+        // Desactivar el contenedor principal de juego
+        if (gameObjects != null)
+        {
+            gameObjects.SetActive(false);
+        }
+        scoreCanvas?.SetActive(false);
+        if (directionalLight) directionalLight.enabled = false;
         //Time.timeScale = 0f;
 
         // Ya no hace falta activar menuCanvas ni gameObjects aquí
