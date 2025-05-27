@@ -17,30 +17,27 @@ public class PlayerMovement : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    /*void Update()
     {
+        if (playerController == null) return;
 
-    }
+        Vector3 pos = transform.position;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if ((playerController.team == PlayerTeam.Red && other.CompareTag("RedMitad")) ||
-            (playerController.team == PlayerTeam.Blue && other.CompareTag("BlueMitad")))
+        if (playerController.team == PlayerTeam.Red)
         {
-            insideValidZone = true;
+            pos.x = Mathf.Clamp(pos.x, 4f, 50f);
+            pos.z = Mathf.Clamp(pos.z, 18f, 71f);
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if ((playerController.team == PlayerTeam.Red && other.CompareTag("RedMitad")) ||
-            (playerController.team == PlayerTeam.Blue && other.CompareTag("BlueMitad")))
+        else if (playerController.team == PlayerTeam.Blue)
         {
-            insideValidZone = false;
+            pos.x = Mathf.Clamp(pos.x, -40f, 4f);
+            pos.z = Mathf.Clamp(pos.z, 18f, 71f);
         }
-    }
-    // Setter for position
+
+        transform.position = pos;
+    }*/
+
+
     public void SetPosition(Vector3 pos)
     {
         if (insideValidZone==true)
