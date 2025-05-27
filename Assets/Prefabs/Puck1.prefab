@@ -170,7 +170,7 @@ MonoBehaviour:
   linearFriction: 0.99
   hitByPlayerSound: {fileID: 8300000, guid: dd936edc97e67e849a6bb82570f65976, type: 3}
   wallBounceSound: {fileID: 8300000, guid: 6675d5777f20a07418be7bf0b83cdf82, type: 3}
-  speedSound: {fileID: 8300000, guid: 96a15ff9f45857d4eb3702a3cd93cd39, type: 3}
+  speedSound: {fileID: 8300000, guid: 33e01d5d466f8fd4fb97c83544317bd6, type: 3}
   teledirigidaSound: {fileID: 8300000, guid: 3f95e4138a377654280e182afe378924, type: 3}
   inverseSound: {fileID: 8300000, guid: 70e8e581338ae5448bc27b303556ce20, type: 3}
   redGoalTarget: {fileID: 0}
