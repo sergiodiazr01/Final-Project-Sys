@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public bool insideValidZone;
     private PlayerController playerController;
 
+    [Header("Restricción de mapa")]
+    public Vector2 limitX = new Vector2(-44f, 44f);
+    public Vector2 limitZ = new Vector2(-24f, 24f);
 
     void Start()
     {
@@ -40,11 +43,44 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetPosition(Vector3 pos)
     {
-        if (insideValidZone==true)
+        // Comprobamos si el tracking original está dentro de los límites
+        bool withinX = (pos.x >= limitX.x && pos.x <= limitX.y);
+        bool withinZ = (pos.z >= limitZ.x && pos.z <= limitZ.y);
+        insideValidZone = withinX && withinZ;
+
+        // Clamp de la posición para que el avatar no salga del campo
+        float clampedX = Mathf.Clamp(pos.x, limitX.x, limitX.y);
+        float clampedZ = Mathf.Clamp(pos.z, limitZ.x, limitZ.y);
+
+        // Aplicamos la posición final (manteniendo la Y actual)
+        transform.position = new Vector3(clampedX, transform.position.y, clampedZ);
+
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 position = transform.position;
+
+        // Clamp global
+        position.x = Mathf.Clamp(position.x, limitX.x, limitX.y);
+        position.z = Mathf.Clamp(position.z, limitZ.x, limitZ.y);
+
+        // Clamp por equipo (mitad de campo)
+        if (playerController != null)
         {
-            transform.position = pos;
+            if (playerController.team == PlayerTeam.Red)
+            {
+                // Rojo no puede pasar a izquierda (x < 0)
+                position.x = Mathf.Clamp(position.x, 0f, limitX.y);
+            }
+            else // Blue
+            {
+                // Azul no puede pasar a derecha (x > 0)
+                position.x = Mathf.Clamp(position.x, limitX.x, 0f);
+            }
         }
-        
+
+        transform.position = position;
     }
 
     // Getter for position
