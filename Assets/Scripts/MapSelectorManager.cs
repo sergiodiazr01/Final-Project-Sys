@@ -12,8 +12,11 @@ public class MapSelectorManager : MonoBehaviour
     void Start()
     {
         if (mapTextures.Length > 0)
-            //mapDisplay.texture = mapTextures[index];
+        {
             UpdateMap();
+            index = 0;
+        }
+            //mapDisplay.texture = mapTextures[index];
     }
 
     public void NextMap()
@@ -31,6 +34,12 @@ public class MapSelectorManager : MonoBehaviour
     void UpdateMap()
     {
         mapDisplay.texture = mapTextures[index];
+        GameSettings.selectedMapIndex = index;
+    }
+
+    public int GetCurrentIndex()
+    {
+        return index;
     }
 }
 
