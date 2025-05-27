@@ -45,7 +45,7 @@ public class RockSpawner : MonoBehaviour
         Vector3 spawnPos = new Vector3(x, center.y, z);
 
         // 2) Instancia el indicador en el suelo
-        GameObject indicator = Instantiate(indicatorPrefab, spawnPos, Quaternion.identity);
+        GameObject indicator = Instantiate(indicatorPrefab, spawnPos, Quaternion.identity, generatedElements);
 
         // 3) Espera el tiempo de la señal
         yield return new WaitForSeconds(indicatorTime);
