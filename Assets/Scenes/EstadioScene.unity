@@ -11695,7 +11695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.95
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11703,7 +11703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.33
+      value: 45.7
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11745,6 +11745,10 @@ PrefabInstance:
       propertyPath: blueGoalTarget
       value: 
       objectReference: {fileID: 397555218}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: hitByPlayerSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dd936edc97e67e849a6bb82570f65976, type: 3}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitOnomatopoeiaPrefabs.Array.size
       value: 1
