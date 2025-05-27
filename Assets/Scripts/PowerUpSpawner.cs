@@ -9,6 +9,8 @@ public class PowerUpSpawner : MonoBehaviour
     public GameObject powerUpBoxPrefab;
     public float spawnInterval = 10f; // tiempo entre spawns
 
+    public Transform generatedElements;
+
     private void Start()
     {
         InvokeRepeating(nameof(SpawnPowerUpBox), 2f, spawnInterval);
@@ -22,7 +24,7 @@ public class PowerUpSpawner : MonoBehaviour
         float randomZ = Random.Range(minZ, maxZ);
         Vector3 spawnPos = new Vector3(randomX, spawnY, randomZ);
 
-        Instantiate(powerUpBoxPrefab, spawnPos, Quaternion.identity);
+        Instantiate(powerUpBoxPrefab, spawnPos, Quaternion.identity, generatedElements);
         Debug.Log("Se ha spawneado una PowerUp Box en " + spawnPos);
     }
 }

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI winText;
 
     [Header("Menú y UI")]
-    public GameObject menuCanvas;
     public GameObject gameObjects;
     public GameObject startButton;
     public Light directionalLight;
@@ -43,15 +42,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (skipMenu)
+        if (GameSettings.powerUpEnabled || GameSettings.obstacleEnabled || GameSettings.specialZoneEnabled)
         {
+            powerUpEnabled = GameSettings.powerUpEnabled;
+            obstacleEnabled = GameSettings.obstacleEnabled;
+            specialZoneEnabled = GameSettings.specialZoneEnabled;
             StartGame();
         }
-        else
+        else if (skipMenu)
         {
+<<<<<<< Updated upstream
             if (menuCanvas != null) menuCanvas.SetActive(true);
             if (gameObjects != null) gameObjects.SetActive(false);
             if (directionalLight != null) directionalLight.enabled = false;
+=======
+            // Opción de debug: saltar siempre sin menú
+            StartGame();
+>>>>>>> Stashed changes
         }
     }
 
@@ -62,9 +69,6 @@ public class GameManager : MonoBehaviour
         powerUpEnabled = powerUpOption != null && powerUpOption.GetState();
         obstacleEnabled = obstacleOption != null && obstacleOption.GetState();
         specialZoneEnabled = specialZoneOption != null && specialZoneOption.GetState();
-
-        // Ocultar el menú
-        if (menuCanvas != null) menuCanvas.SetActive(false);
 
         // Activar zona de juego
         if (gameObjects != null) gameObjects.SetActive(true);
@@ -99,6 +103,7 @@ public class GameManager : MonoBehaviour
         winText.gameObject.SetActive(true);
         winText.text = message;
 
+<<<<<<< Updated upstream
         // aqui se puede parar el juego o meter animaciones o lo que sea
         Time.timeScale = 0f;
 
@@ -108,5 +113,29 @@ public class GameManager : MonoBehaviour
 
         // Apagar la luz del juego
         if (directionalLight != null) directionalLight.enabled = false;
+=======
+        // Desactivar marcador
+        if (scoreCanvas != null)
+            scoreCanvas.SetActive(false);
+
+        // 3) Parar todo bajo gameObjects
+        if (gameObjects != null)
+        {
+            // Desactiva el objeto padre
+            gameObjects.SetActive(false);
+
+            // (Opcional) Asegura que cada hijo queda desactivado
+            foreach (Transform child in gameObjects.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+        // 4) Apagar la luz de juego
+        if (directionalLight != null)
+            directionalLight.enabled = false;
+
+        //Time.timeScale = 0f;
+>>>>>>> Stashed changes
     }
 }

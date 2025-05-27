@@ -12,25 +12,39 @@ public class MapSelectorManager : MonoBehaviour
     void Start()
     {
         if (mapTextures.Length > 0)
-            //mapDisplay.texture = mapTextures[index];
+        {
+            index = 0;
             UpdateMap();
+        }
     }
 
     public void NextMap()
     {
-        index = (index + 1);
+        if (mapTextures.Length == 0) return;
+
+        index = (index + 1) % mapTextures.Length;
         UpdateMap();
     }
 
     public void PreviousMap()
     {
-        index = (index - 1 + mapTextures.Length);
+        if (mapTextures.Length == 0) return;
+
+        index = (index - 1 + mapTextures.Length) % mapTextures.Length;
         UpdateMap();
     }
 
-    void UpdateMap()
+    private void UpdateMap()
     {
+        // Actualiza la imagen en el menú
         mapDisplay.texture = mapTextures[index];
+
+        // Guarda la selección en la clase estática
+        GameSettings.selectedMapIndex = index;
+    }
+
+    public int GetCurrentIndex()
+    {
+        return index;
     }
 }
-

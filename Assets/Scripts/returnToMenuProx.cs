@@ -1,41 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartGameByHover : MonoBehaviour
+public class returnToMenuProx : MonoBehaviour
 {
     public float hoverTime = 2f;
     private float timer = 0f;
-    private bool hovering = false;
+    private bool isHovering = false;
+    public GameManager gameManager;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            hovering = true;
+            isHovering = true;
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            hovering = false;
+            isHovering = false;
             timer = 0f;
         }
     }
 
     void Update()
     {
-        if (hovering)
+        if (isHovering)
         {
             timer += Time.deltaTime;
             if (timer >= hoverTime)
             {
-                Debug.Log("StartGame");
-                //GameManager.instance.StartGame();
-                hovering = false;
+                SceneManager.LoadScene("Scene");
+                isHovering = false;
                 timer = 0f;
-                SceneManager.LoadScene("EstadioScene");
             }
         }
     }

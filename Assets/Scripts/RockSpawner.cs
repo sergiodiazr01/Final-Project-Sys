@@ -12,6 +12,7 @@ public class RockSpawner : MonoBehaviour
 
     private float timer;
     private BoxCollider areaCollider;
+    public Transform generatedElements;
 
     void Awake()
     {
@@ -50,6 +51,6 @@ public class RockSpawner : MonoBehaviour
 
         // 4) Destruye el indicador y crea la roca
         Destroy(indicator);
-        Instantiate(rockPrefab, spawnPos, Quaternion.identity);
+        Instantiate(rockPrefab, spawnPos, Quaternion.identity, generatedElements);
     }
 }
