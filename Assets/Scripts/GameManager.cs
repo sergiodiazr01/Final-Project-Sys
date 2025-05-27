@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -45,10 +47,11 @@ public class GameManager : MonoBehaviour
     public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
     public GameObject shockwavePrefab;
 
-    public GameObject victoryCanvas;
-    public TextMeshProUGUI victoryText;
+   
 
-
+    [Header("Pantallas de victoria")]
+    public GameObject redVictoryImage;
+    public GameObject blueVictoryImage;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -67,14 +70,7 @@ public class GameManager : MonoBehaviour
             if (gameObjects != null) gameObjects.SetActive(false);
             if (scoreCanvas != null) scoreCanvas.SetActive(false);
             if (directionalLight != null) directionalLight.enabled = false;
-            if (victoryCanvas != null) victoryCanvas.SetActive(false);  
-        
-          
-        
         }
-      
-            
-
     }
 
     public void StartGame()
@@ -95,7 +91,6 @@ public class GameManager : MonoBehaviour
 
         // Activar la luz de juego
         if (directionalLight != null) directionalLight.enabled = false;
-        
     }
 
     public void GoalScored(PlayerTeam scoringTeam)
@@ -109,9 +104,9 @@ public class GameManager : MonoBehaviour
         UpdateUI();
 
         if (redScore >= scoreToWin)
-            ShowWin("RED wins!");
+            ShowWin(PlayerTeam.Red);
         else if (blueScore >= scoreToWin)
-            ShowWin("BLUE wins!");
+            ShowWin(PlayerTeam.Blue);
     }
 
     void UpdateUI()
@@ -119,49 +114,25 @@ public class GameManager : MonoBehaviour
         redScoreText.text = redScore.ToString();
         blueScoreText.text = blueScore.ToString();
     }
-
-    void ShowWin(string message)
+    void ShowWin(PlayerTeam winner)
     {
-        // Mostrar mensaje de victoria
-        if (victoryText != null)
-        {
-            victoryText.text = message;
-            victoryText.color = message.Contains("RED") ? Color.red : Color.blue;
-        }
+       
+        if (winner == PlayerTeam.Red && redVictoryImage != null)
+            redVictoryImage.SetActive(true);
+        else if (winner == PlayerTeam.Blue && blueVictoryImage != null)
+            blueVictoryImage.SetActive(true);
 
-        // Activar el panel de victoria
-        if (victoryCanvas != null)
-            victoryCanvas.SetActive(true);
-
-        // Ocultar el marcador y otros elementos
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
 
-        if (gameObjects != null)
-            gameObjects.SetActive(false);
+        //Time.timeScale = 0f;
 
+        // Ya no hace falta activar menuCanvas ni gameObjects aquí
         if (directionalLight != null)
-        {
             directionalLight.enabled = false;
-        }
-        
-        // Pausar el juego
-        Time.timeScale = 0f;
     }
 
-    public void ReturnToMenu()
-    {
-        // Restaurar el tiempo
-        Time.timeScale = 1f;
 
-        // Mostrar menú y ocultar victoria
-        if (victoryCanvas != null)
-            victoryCanvas.SetActive(false);
-        if (menuCanvas != null)
-            menuCanvas.SetActive(true);
-    }
-
-    
     public void RespawnPuck(float delay = 1f)
     {
         StartCoroutine(RespawnPuckCoroutine(delay));
@@ -196,5 +167,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("aa");
         shockWave.SetColor(color);
         Debug.Log("aaa");
+    }
+    
+    public void ReturnToMenu()
+    {
+        Time.timeScale = 1f;  // Asegúrate de que el tiempo no esté pausado
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia la escena actual
     }
 }
