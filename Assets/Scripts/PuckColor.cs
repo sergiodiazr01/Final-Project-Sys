@@ -27,7 +27,9 @@ public class PuckColor : MonoBehaviour
     public AudioClip wallBounceSound;
     private AudioSource audioSource;
 
-
+    public AudioClip speedSound;
+    public AudioClip teledirigidaSound;
+    public AudioClip inverseSound;
     public Transform redGoalTarget;
     public Transform blueGoalTarget;
     public float forceToGoal = 10f;
@@ -166,6 +168,11 @@ public class PuckColor : MonoBehaviour
     {
         if (other.CompareTag("SpeedZone") && !isSpeedBoosted)
         {
+            if (audioSource != null && speedSound != null)
+            {
+                audioSource.PlayOneShot(speedSound);  
+            }
+                
             Debug.Log("Puck ha entrado en zona de velocidad");
 
             rb.velocity *= speedZoneMultiplier;
@@ -173,6 +180,10 @@ public class PuckColor : MonoBehaviour
         }
         else if (other.CompareTag("RepulsorZone"))
         {
+            if (audioSource != null && inverseSound != null)
+            {
+                audioSource.PlayOneShot(inverseSound);  
+            }
             Debug.Log("Puck ha entrado en RepulsorZone");
 
             if (rb.velocity.magnitude > 0.1f)
@@ -192,6 +203,10 @@ public class PuckColor : MonoBehaviour
 
         else if (other.CompareTag("TeledirigidaZone") && lastPlayerTouched != null)
         {
+            if (audioSource != null && teledirigidaSound != null)
+            {
+                audioSource.PlayOneShot(teledirigidaSound);  
+            }
             Debug.Log("Puck ha entrado en zona teledirigida");
 
             PlayerTeam team = lastPlayerTouched.GetTeam();
