@@ -1117,7 +1117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &238585813
 Transform:
   m_ObjectHideFlags: 0
@@ -1157,10 +1157,8 @@ MonoBehaviour:
   startButton: {fileID: 0}
   directionalLight: {fileID: 0}
   skipMenu: 0
-  maps:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  mapRenderer: {fileID: 0}
+  mapMaterials: []
   powerUpOption: {fileID: 0}
   obstacleOption: {fileID: 0}
   specialZoneOption: {fileID: 0}
@@ -8652,7 +8650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2126493649
 Transform:
   m_ObjectHideFlags: 0
