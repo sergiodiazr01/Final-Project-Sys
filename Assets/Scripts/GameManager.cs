@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     [Header("Opciones de inicio")]
     public bool skipMenu = false;
 
-    [Header("Selector de mapa")]
-    public MapSelectorManager mapSelector;
+    [Header("Mapas de estadio")]
+    public GameObject[] maps;
 
     [Header("Opciones UI")]
     public HoverToggleButton powerUpOption;
@@ -54,17 +54,31 @@ public class GameManager : MonoBehaviour
     public GameObject blueVictoryImage;
 
     [Header("Spawners")]
-    public PowerUpSpawner powerUpSpawner;
-    public SpecialZoneSpawner specialZoneSpawner;
-    public ObstacleController obstacleSpawner;
+    public GameObject powerUpSpawner;
+    public GameObject specialZoneSpawner;
+    public GameObject obstacleSpawner;
 
     [Header("Mapa")]
     private int selectedMapIndex = 0;
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else Destroy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
@@ -101,24 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("StartGame");
-        // Opciones menú
-        selectedMapIndex = GameSettings.MapIndex;
-        powerUpEnabled = GameSettings.PowerUpEnabled;
-        obstacleEnabled = GameSettings.ObstacleEnabled;
-        specialZoneEnabled = GameSettings.SpecialZoneEnabled;
-
         SceneManager.LoadScene("EstadioScene");
-        //// Ocultar el menú
-        //if (menuCanvas != null) menuCanvas.SetActive(false);
-
-        //// Activar zona de juego
-        //if (gameObjects != null) gameObjects.SetActive(true);
-
-        //if (scoreCanvas != null) scoreCanvas.SetActive(true);
-
-        //// Activar la luz de juego
-        //if (directionalLight != null) directionalLight.enabled = false;
     }
 
     public void GoalScored(PlayerTeam scoringTeam)
@@ -209,5 +206,35 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;  // Asegúrate de que el tiempo no esté pausado
         SceneManager.LoadScene("Menu");
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia la escena actual
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "EstadioScene")
+            return;
+
+        // 1) Leer ajustes
+        selectedMapIndex = GameSettings.MapIndex;
+        powerUpEnabled = GameSettings.PowerUpEnabled;
+        specialZoneEnabled = GameSettings.SpecialZoneEnabled;
+        obstacleEnabled = GameSettings.ObstacleEnabled;
+
+        // 2) Activar estadio
+        for (int i = 0; i < maps.Length; i++)
+        {
+            maps[i].SetActive(i == selectedMapIndex);
+        }
+
+        // 3) Activar/desactivar spawners
+        if (powerUpSpawner != null) powerUpSpawner.gameObject.SetActive(powerUpEnabled);
+        if (specialZoneSpawner != null) specialZoneSpawner.gameObject.SetActive(specialZoneEnabled);
+        if (obstacleSpawner != null) obstacleSpawner.gameObject.SetActive(obstacleEnabled);
+
+        // 4) Reset de marcadores y UI
+        redScore = blueScore = 0;
+        UpdateUI();
+        scoreCanvas?.SetActive(true);
+        gameObjects?.SetActive(true);
+        directionalLight?.gameObject.SetActive(true);
     }
 }

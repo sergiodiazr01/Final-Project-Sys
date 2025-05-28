@@ -5480,6 +5480,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fa414833d1233341914b51102208fc8, type: 3}
+--- !u!1 &763416862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 526875295441307762, guid: 2fa414833d1233341914b51102208fc8, type: 3}
+  m_PrefabInstance: {fileID: 763416861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763629978
 GameObject:
   m_ObjectHideFlags: 0
@@ -10197,7 +10202,7 @@ MonoBehaviour:
   puckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
   redScore: 0
   blueScore: 0
-  scoreToWin: 4
+  scoreToWin: 1
   redScoreText: {fileID: 200406876}
   blueScoreText: {fileID: 954608717}
   winText: {fileID: 0}
@@ -10207,7 +10212,7 @@ MonoBehaviour:
   startButton: {fileID: 0}
   directionalLight: {fileID: 0}
   skipMenu: 0
-  mapSelector: {fileID: 3154528893189374806}
+  maps: []
   powerUpOption: {fileID: 0}
   obstacleOption: {fileID: 0}
   specialZoneOption: {fileID: 0}
@@ -10219,6 +10224,9 @@ MonoBehaviour:
   shockwavePrefab: {fileID: 391415548098856820, guid: 6b444ee599c688a48aed5756b13379f1, type: 3}
   redVictoryImage: {fileID: 246250964}
   blueVictoryImage: {fileID: 150642616}
+  powerUpSpawner: {fileID: 1885542785}
+  specialZoneSpawner: {fileID: 1543654970}
+  obstacleSpawner: {fileID: 763416862}
 --- !u!1001 &1592074213
 PrefabInstance:
   m_ObjectHideFlags: 0

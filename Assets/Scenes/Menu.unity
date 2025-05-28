@@ -1157,7 +1157,7 @@ MonoBehaviour:
   startButton: {fileID: 0}
   directionalLight: {fileID: 0}
   skipMenu: 0
-  mapSelector: {fileID: 0}
+  maps: []
   powerUpOption: {fileID: 0}
   obstacleOption: {fileID: 0}
   specialZoneOption: {fileID: 0}
@@ -2034,6 +2034,17 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &357952150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 162771281658576334, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
+  m_PrefabInstance: {fileID: 1645259112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &428189361
 GameObject:
   m_ObjectHideFlags: 0
@@ -4781,6 +4792,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304957655}
   m_CullTransparentMesh: 1
+--- !u!114 &1393670391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 162771281065147983, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
+  m_PrefabInstance: {fileID: 1645259112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1425857998
 GameObject:
   m_ObjectHideFlags: 0
@@ -6629,6 +6651,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 162771281008721400, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 76302ab843fd46d4b8f2367c997d145a, type: 3}
     - target: {fileID: 162771281065147970, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6823,6 +6849,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725042448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 162771281745037717, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
+  m_PrefabInstance: {fileID: 1645259112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1741870968
 GameObject:
   m_ObjectHideFlags: 1
@@ -8639,8 +8676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73825d6c3e251b7429f5a6bb8d87569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpOption: {fileID: 0}
-  obstacleOption: {fileID: 0}
-  specialZoneOption: {fileID: 0}
-  mapSelector: {fileID: 0}
+  powerUpOption: {fileID: 357952150}
+  obstacleOption: {fileID: 1393670391}
+  specialZoneOption: {fileID: 1725042448}
+  mapSelector: {fileID: 832256921}
   startButton: {fileID: 0}
