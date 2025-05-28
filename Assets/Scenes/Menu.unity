@@ -1157,7 +1157,10 @@ MonoBehaviour:
   startButton: {fileID: 0}
   directionalLight: {fileID: 0}
   skipMenu: 0
-  maps: []
+  maps:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   powerUpOption: {fileID: 0}
   obstacleOption: {fileID: 0}
   specialZoneOption: {fileID: 0}

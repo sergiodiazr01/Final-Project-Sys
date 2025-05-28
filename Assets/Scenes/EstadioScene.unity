@@ -6123,6 +6123,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8127453468184609400, guid: 039ab96f47a10bc49a90848546972a9c, type: 3}
   m_PrefabInstance: {fileID: 950914318}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &950914320 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8127453467598422998, guid: 039ab96f47a10bc49a90848546972a9c, type: 3}
+  m_PrefabInstance: {fileID: 950914318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &954608715
 GameObject:
   m_ObjectHideFlags: 0
@@ -10210,9 +10215,13 @@ MonoBehaviour:
   gameObjects: {fileID: 539840691}
   scoreCanvas: {fileID: 1996503815}
   startButton: {fileID: 0}
-  directionalLight: {fileID: 0}
+  directionalLight: {fileID: 705507994}
   skipMenu: 0
-  maps: []
+  mapRenderer: {fileID: 950914320}
+  mapMaterials:
+  - {fileID: 2100000, guid: 9a7d2b593f14d9140a18562716a389cb, type: 2}
+  - {fileID: 2100000, guid: 8d2778d22f98f7248b1c8f668aed2646, type: 2}
+  - {fileID: 2100000, guid: 8ec665c2fb816db4cb6f6df2261ef28f, type: 2}
   powerUpOption: {fileID: 0}
   obstacleOption: {fileID: 0}
   specialZoneOption: {fileID: 0}

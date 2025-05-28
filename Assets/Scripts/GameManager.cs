@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
     public bool skipMenu = false;
 
     [Header("Mapas de estadio")]
-    public GameObject[] maps;
+    public Renderer mapRenderer;
+    public Material[] mapMaterials;
 
     [Header("Opciones UI")]
     public HoverToggleButton powerUpOption;
@@ -220,10 +221,7 @@ public class GameManager : MonoBehaviour
         obstacleEnabled = GameSettings.ObstacleEnabled;
 
         // 2) Activar estadio
-        for (int i = 0; i < maps.Length; i++)
-        {
-            maps[i].SetActive(i == selectedMapIndex);
-        }
+        mapRenderer.material = mapMaterials[selectedMapIndex];
 
         // 3) Activar/desactivar spawners
         if (powerUpSpawner != null) powerUpSpawner.gameObject.SetActive(powerUpEnabled);
