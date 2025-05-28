@@ -8,6 +8,7 @@ public class MapSelectorManager : MonoBehaviour
     public RawImage mapDisplay;
     public Texture[] mapTextures;
     private int index = 0;
+    public int CurrentIndex => index;
 
     void Start()
     {
@@ -20,12 +21,14 @@ public class MapSelectorManager : MonoBehaviour
     {
         index = (index + 1);
         UpdateMap();
+        GameSettings.MapIndex = index;
     }
 
     public void PreviousMap()
     {
         index = (index - 1 + mapTextures.Length);
         UpdateMap();
+        GameSettings.MapIndex = index;
     }
 
     void UpdateMap()

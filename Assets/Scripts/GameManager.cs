@@ -47,11 +47,20 @@ public class GameManager : MonoBehaviour
     public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
     public GameObject shockwavePrefab;
 
-   
+
 
     [Header("Pantallas de victoria")]
     public GameObject redVictoryImage;
     public GameObject blueVictoryImage;
+
+    [Header("Spawners")]
+    public PowerUpSpawner powerUpSpawner;
+    public SpecialZoneSpawner specialZoneSpawner;
+    public ObstacleController obstacleSpawner;
+
+    [Header("Mapa")]
+    private int selectedMapIndex = 0;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -64,33 +73,52 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
-        else
-        {
-            if (menuCanvas != null) menuCanvas.SetActive(true);
-            if (gameObjects != null) gameObjects.SetActive(false);
-            if (scoreCanvas != null) scoreCanvas.SetActive(false);
-            if (directionalLight != null) directionalLight.enabled = false;
-        }
+
+        if (!powerUpEnabled && powerUpSpawner != null)
+            powerUpSpawner.gameObject.SetActive(false);
+
+        if (!specialZoneEnabled && specialZoneSpawner != null)
+            specialZoneSpawner.gameObject.SetActive(false);
+
+        if (!obstacleEnabled && obstacleSpawner != null)
+            obstacleSpawner.gameObject.SetActive(false);
+
+        // Selecciona el mapa
+
+        // Activa UI de juego
+        scoreCanvas.SetActive(true);
+        gameObjects.SetActive(true);
+
+
+        //else
+        //{
+        //    if (menuCanvas != null) menuCanvas.SetActive(true);
+        //    if (gameObjects != null) gameObjects.SetActive(false);
+        //    if (scoreCanvas != null) scoreCanvas.SetActive(false);
+        //    if (directionalLight != null) directionalLight.enabled = false;
+        //}
     }
 
     public void StartGame()
     {
         Debug.Log("StartGame");
-        // Leer el estado actual de las opciones antes de cerrar el menú
-        powerUpEnabled = powerUpOption != null && powerUpOption.GetState();
-        obstacleEnabled = obstacleOption != null && obstacleOption.GetState();
-        specialZoneEnabled = specialZoneOption != null && specialZoneOption.GetState();
+        // Opciones menú
+        selectedMapIndex = GameSettings.MapIndex;
+        powerUpEnabled = GameSettings.PowerUpEnabled;
+        obstacleEnabled = GameSettings.ObstacleEnabled;
+        specialZoneEnabled = GameSettings.SpecialZoneEnabled;
 
-        // Ocultar el menú
-        if (menuCanvas != null) menuCanvas.SetActive(false);
+        SceneManager.LoadScene("EstadioScene");
+        //// Ocultar el menú
+        //if (menuCanvas != null) menuCanvas.SetActive(false);
 
-        // Activar zona de juego
-        if (gameObjects != null) gameObjects.SetActive(true);
+        //// Activar zona de juego
+        //if (gameObjects != null) gameObjects.SetActive(true);
 
-        if (scoreCanvas != null) scoreCanvas.SetActive(true);
+        //if (scoreCanvas != null) scoreCanvas.SetActive(true);
 
-        // Activar la luz de juego
-        if (directionalLight != null) directionalLight.enabled = false;
+        //// Activar la luz de juego
+        //if (directionalLight != null) directionalLight.enabled = false;
     }
 
     public void GoalScored(PlayerTeam scoringTeam)
@@ -179,6 +207,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;  // Asegúrate de que el tiempo no esté pausado
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia la escena actual
+        SceneManager.LoadScene("Menu");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia la escena actual
     }
 }

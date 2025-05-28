@@ -58,6 +58,12 @@ public class HoverToggleButton : MonoBehaviour
         isOn = !isOn;
         UpdateVisual();
         Debug.Log(gameObject.name + " toggled to " + (isOn ? "ON" : "OFF"));
+        if (gameObject.name.Contains("PowerUps"))
+            GameSettings.PowerUpEnabled = isOn;
+        else if (gameObject.name.Contains("Obstacles"))
+            GameSettings.ObstacleEnabled = isOn;
+        else if (gameObject.name.Contains("SpecialZone"))
+            GameSettings.SpecialZoneEnabled = isOn;
     }
 
     void UpdateVisual()
