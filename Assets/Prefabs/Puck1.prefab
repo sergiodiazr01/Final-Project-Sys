@@ -164,7 +164,7 @@ MonoBehaviour:
   bluePlayerColor: {r: 0, g: 0, b: 1, a: 1}
   lastPlayerTouched: {fileID: 0}
   speed: 5
-  maxVelocity: 20
+  maxVelocity: 50
   speedZoneMultiplier: 5
   hitforce: 50
   linearFriction: 0.99
@@ -184,6 +184,8 @@ MonoBehaviour:
   textPitch: 90
   redYaw: 90
   blueYaw: -90
+  impactParticlePrefab: {fileID: 6090531381606113675, guid: 13fa980b8c224c241b4e4242df025f3d, type: 3}
+  particleLifetime: 1.5
 --- !u!82 &4370923268126289884
 AudioSource:
   m_ObjectHideFlags: 0

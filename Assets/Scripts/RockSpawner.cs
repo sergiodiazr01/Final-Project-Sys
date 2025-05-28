@@ -5,10 +5,10 @@ public class RockSpawner : MonoBehaviour
 {
     [Header("Prefab y tiempos")]
     public GameObject rockPrefab;
-    public GameObject indicatorPrefab;   // <— nuevo
+    public GameObject indicatorPrefab;   // <ï¿½ nuevo
     public float spawnInterval = 5f;     // tiempo entre spawn (rocai)
     public float initialDelay = 0f;    // retardo inicial
-    public float indicatorTime = 1f;    // duración de la señal antes de la roca
+    public float indicatorTime = 1f;    // duracion de la seÃ±al antes de la roca
 
     private float timer;
     private BoxCollider areaCollider;
@@ -37,21 +37,30 @@ public class RockSpawner : MonoBehaviour
 
     IEnumerator SpawnWithIndicator()
     {
-        // 1) Calcula posición aleatoria como antes
-        Vector3 center = transform.TransformPoint(areaCollider.center);
-        Vector3 size = areaCollider.size;
-        float x = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
-        float z = Random.Range(center.z - size.z / 2, center.z + size.z / 2);
-        Vector3 spawnPos = new Vector3(x, center.y, z);
+        Vector3 c = transform.TransformPoint(areaCollider.center);
+        Vector3 h = areaCollider.size * 0.5f;
+        float excl = 10f;
+        float x = Random.Range(c.x - h.x, c.x + h.x);
 
-        // 2) Instancia el indicador en el suelo
-        GameObject indicator = Instantiate(indicatorPrefab, spawnPos, Quaternion.identity, generatedElements);
+        // lÃ­mites de Z
+        float zMin = c.z - h.z;
+        float zMax = c.z + h.z;
+        float zLow = c.z - excl;
+        float zHigh = c.z + excl;
 
-        // 3) Espera el tiempo de la señal
+        // longitudes de tramo inferior y superior
+        float l1 = Mathf.Max(0, zLow - zMin);
+        float l2 = Mathf.Max(0, zMax - zHigh);
+
+        // elige zona en proporciÃ³n a sus longitudes y genera Z
+        float z = Random.value * (l1 + l2) < l1
+                       ? Random.Range(zMin, zLow)
+                       : Random.Range(zHigh, zMax);
+
+        Vector3 p = new Vector3(x, c.y, z);
+        var ind = Instantiate(indicatorPrefab, p, Quaternion.identity, generatedElements);
         yield return new WaitForSeconds(indicatorTime);
-
-        // 4) Destruye el indicador y crea la roca
-        Destroy(indicator);
-        Instantiate(rockPrefab, spawnPos, Quaternion.identity, generatedElements);
+        Destroy(ind);
+        Instantiate(rockPrefab, p, Quaternion.identity, generatedElements);
     }
 }

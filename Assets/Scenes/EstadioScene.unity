@@ -3361,10 +3361,10 @@ MonoBehaviour:
   goalShield: {fileID: 158456708}
   isSizeBoosted: 0
   ownGoal: {fileID: 535202433}
-  proximityDistance: 10
-  timeToGrow: 5
+  proximityDistance: 13
+  timeToGrow: 3
   enlargedZScale: 50
-  resizeDuration: 3
+  resizeDuration: 2
 --- !u!114 &463686143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3944,7 +3944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &539840692
 Transform:
   m_ObjectHideFlags: 0
@@ -4021,10 +4021,10 @@ MonoBehaviour:
   goalShield: {fileID: 1003575697}
   isSizeBoosted: 0
   ownGoal: {fileID: 1429405261}
-  proximityDistance: 10
-  timeToGrow: 5
+  proximityDistance: 13
+  timeToGrow: 3
   enlargedZScale: 50
-  resizeDuration: 3
+  resizeDuration: 2
 --- !u!114 &564666846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5413,6 +5413,14 @@ PrefabInstance:
     - target: {fileID: 526875295441307760, guid: 2fa414833d1233341914b51102208fc8, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526875295441307761, guid: 2fa414833d1233341914b51102208fc8, type: 3}
+      propertyPath: initialDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 526875295441307761, guid: 2fa414833d1233341914b51102208fc8, type: 3}
+      propertyPath: spawnInterval
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 526875295441307761, guid: 2fa414833d1233341914b51102208fc8, type: 3}
       propertyPath: generatedElements
@@ -9589,7 +9597,7 @@ Transform:
   - {fileID: 564666844}
   - {fileID: 463686139}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1563278741
 GameObject:
@@ -10194,7 +10202,7 @@ MonoBehaviour:
   puckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
   redScore: 0
   blueScore: 0
-  scoreToWin: 1
+  scoreToWin: 4
   redScoreText: {fileID: 200406876}
   blueScoreText: {fileID: 954608717}
   winText: {fileID: 0}
@@ -10782,7 +10790,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1760844107
 GameObject:
@@ -11646,7 +11654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1875428904
 MonoBehaviour:
@@ -11805,8 +11813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9852762b25985cf4b9df64d5709f6c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: -44
-  maxX: 44
+  minX: -31
+  maxX: 39
   minZ: -24
   maxZ: 24
   spawnY: 0.5
@@ -13367,51 +13375,51 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 162771281065147970, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281065147970, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281065147970, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281065147970, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281658576333, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281658576333, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281658576333, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281658576333, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -86.666664
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281745037704, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281745037704, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281745037704, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281745037704, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -513.3333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 162771281755339320, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_Enabled
@@ -13427,7 +13435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 162771281755339323, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 162771281755339323, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_AnchorMax.x
@@ -13507,7 +13515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 162771281755339324, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 162771281755339327, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
       propertyPath: m_Enabled

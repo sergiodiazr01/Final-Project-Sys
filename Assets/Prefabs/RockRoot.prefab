@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   riseTime: 4
-  activeTime: 10
+  activeTime: 6
   fallTime: 1
   hiddenDepth: 15
   visibleHeight: 0
