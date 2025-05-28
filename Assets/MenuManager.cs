@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        startButton.onClick.AddListener(OnStartClicked);
+        //startButton.onClick.AddListener(OnStartClicked);
     }
 
     void OnStartClicked()
@@ -24,6 +24,6 @@ public class MenuManager : MonoBehaviour
         bool sz = specialZoneOption.GetState();
         int mapIdx = mapSelector.CurrentIndex;
 
-        GameManager.instance.StartGame();
+        //GameManager.instance.StartGame();
     }
 }

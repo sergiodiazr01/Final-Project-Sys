@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGameByHover : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class StartGameByHover : MonoBehaviour
             if (timer >= hoverTime)
             {
                 Debug.Log("StartGame");
-                GameManager.instance.StartGame();
+                SceneManager.LoadScene("EstadioScene");
                 hovering = false;
                 timer = 0f;
             }
