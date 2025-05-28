@@ -48,7 +48,9 @@ public class GameManager : MonoBehaviour
     public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
     public GameObject shockwavePrefab;
 
-
+    private AudioSource audioSource;
+    public AudioClip countdownSound;
+    public AudioClip WinSound;
 
     [Header("Pantallas de victoria")]
     public GameObject redVictoryImage;
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Mapa")]
     private int selectedMapIndex = 0;
+
+
 
     private void Awake()
     {
@@ -103,7 +107,7 @@ public class GameManager : MonoBehaviour
         // Activa UI de juego
         scoreCanvas.SetActive(true);
         gameObjects.SetActive(true);
-
+        audioSource = GetComponent<AudioSource>();
 
         //else
         //{
@@ -128,6 +132,10 @@ public class GameManager : MonoBehaviour
             blueScore++;
 
         UpdateUI();
+        if (redScore < scoreToWin || blueScore < scoreToWin)
+        {
+           StartCoroutine(PlayCountdownSoundDelayed(1f));
+        }
 
         if (redScore >= scoreToWin)
             ShowWin(PlayerTeam.Red);
@@ -142,11 +150,25 @@ public class GameManager : MonoBehaviour
     }
     void ShowWin(PlayerTeam winner)
     {
-       
+
         if (winner == PlayerTeam.Red && redVictoryImage != null)
+        {
+            if (WinSound != null)
+            {
+                audioSource.PlayOneShot(WinSound);
+            }
             redVictoryImage.SetActive(true);
+        }
         else if (winner == PlayerTeam.Blue && blueVictoryImage != null)
+        {
+            if (WinSound != null)
+            {
+                audioSource.PlayOneShot(WinSound);
+            }
+
             blueVictoryImage.SetActive(true);
+        }
+
 
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
@@ -183,6 +205,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
         yield return new WaitForSeconds(intervalGame);
 
         GameObject newPuck = Instantiate(puckPrefab, new Vector3(0f, 0.5f, 0f), Quaternion.identity);
@@ -201,7 +224,7 @@ public class GameManager : MonoBehaviour
         shockWave.SetColor(color);
         Debug.Log("aaa");
     }
-    
+
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;  // Asegúrate de que el tiempo no esté pausado
@@ -234,5 +257,15 @@ public class GameManager : MonoBehaviour
         scoreCanvas?.SetActive(true);
         gameObjects?.SetActive(true);
         directionalLight?.gameObject.SetActive(true);
+    }
+    
+    private IEnumerator PlayCountdownSoundDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (countdownSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(countdownSound);
+        }
     }
 }

@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
     private Coroutine resizeCoroutine = null;
     private Vector3 originalGoalScale;
 
-
+    private AudioSource audioSource; // Componente de AudioSource para reproducir sonidos
+    public AudioClip growSound; // Sonido de crecer
+    public AudioClip decreaseSound; // Sonido de decrecer
 
 
     private void Start()
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             originalGoalScale = ownGoal.localScale;
         }
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 if (resizeCoroutine != null) StopCoroutine(resizeCoroutine);
                 resizeCoroutine = StartCoroutine(ResizeGoalZ(originalGoalScale.z, enlargedZScale));
                 isGrowing = true;
-
+                audioSource.PlayOneShot(growSound); // Reproducir sonido de crecimiento
                 Debug.Log("[PORTERÍA] Creciendo...");
             }
         }
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
                 if (resizeCoroutine != null) StopCoroutine(resizeCoroutine);
                 resizeCoroutine = StartCoroutine(ResizeGoalZ(ownGoal.localScale.z, originalGoalScale.z));
                 isGrowing = false;
-
+                audioSource.PlayOneShot(decreaseSound); // Reproducir sonido de decrecimiento
                 Debug.Log("[PORTERÍA] Volviendo al tamaño original...");
             }
         }

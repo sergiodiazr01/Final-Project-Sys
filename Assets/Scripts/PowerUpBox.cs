@@ -7,6 +7,10 @@ public class PowerUpBox : MonoBehaviour
     public float extraPuckLifetime = 5f; // Tiempo que el puck extra estará activo
     public Transform puckContainer; // Donde guardamos los pucks
 
+    private AudioSource audioSource; // Componente de AudioSource para reproducir sonidos
+    public AudioClip powerUpSound; // Sonido del power-up
+    public AudioClip GrowSound; // Sonido del puck extra
+    public AudioClip ShieldSound; // Sonido del aumento de tamaño
     private void Start()
     {
         if (puckContainer == null)
@@ -17,6 +21,7 @@ public class PowerUpBox : MonoBehaviour
                 puckContainer = container.transform;
             }
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +29,12 @@ public class PowerUpBox : MonoBehaviour
         // Comprobar si es un puck
         if (other.CompareTag("Puck"))
         {
+            // Reproducir sonido de power-up
+            if (powerUpSound != null)
+            {
+                audioSource.PlayOneShot(powerUpSound);
+            }
+            
 
             // Activar power-up al jugador
             //puck.lastPlayerTouched.ActivatePowerUp();
@@ -36,7 +47,8 @@ public class PowerUpBox : MonoBehaviour
                 {
                     PuckColor puckScript = other.GetComponentInParent<PuckColor>();
                     if (puckScript != null && puckScript.lastPlayerTouched != null)
-                    {
+                    {   
+                        audioSource.PlayOneShot(ShieldSound);
                         puckScript.lastPlayerTouched.ActivateGoalShield();
                         Debug.Log("Power-Up: Escudo activado en portería del jugador");
                     }
@@ -78,6 +90,7 @@ public class PowerUpBox : MonoBehaviour
                     Debug.Log("lastPlayerTouched: " + puckScript.lastPlayerTouched);
                     if (puckScript != null && puckScript.lastPlayerTouched != null)
                 {
+                    audioSource.PlayOneShot(GrowSound);
                     puckScript.lastPlayerTouched.ActivateSizeBoost();
                     Debug.Log("Power-Up: Jugador aumentado temporalmente");
                 }

@@ -55,7 +55,8 @@ public class PuckColor : MonoBehaviour
     [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Azul → apunta a su lado")]
     public float blueYaw = -90f;
 
-    public ParticleSystem impactParticlePrefab;
+    public ParticleSystem redImpactParticlePrefab;
+    public ParticleSystem blueImpactParticlePrefab;
 
     public float particleLifetime = 1.5f;
 
@@ -279,22 +280,16 @@ public class PuckColor : MonoBehaviour
         Destroy(gameObject);
     }
     
-    void SpawnImpactParticles(ContactPoint contact)
+   void SpawnImpactParticles(ContactPoint contact)
     {
-        if (!impactParticlePrefab) return;
+        ParticleSystem prefab = (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
+                                 ? redImpactParticlePrefab
+                                 : blueImpactParticlePrefab;
+        if (!prefab) return;
 
-        Vector3 spawnPos = contact.point + contact.normal * 0.02f; // ligera separación
-        Quaternion rot  = Quaternion.LookRotation(contact.normal);
-
-        ParticleSystem ps = Instantiate(impactParticlePrefab, spawnPos, rot);
-
-        // Colorea las partículas de acuerdo con el equipo
-        if (lastPlayerTouched)
-        {
-            var main = ps.main;
-            main.startColor = (lastPlayerTouched.GetTeam() == PlayerTeam.Red) ? redPlayerColor : bluePlayerColor;
-        }
-
+        Vector3 spawnPos = contact.point + contact.normal * 0.02f;
+        Quaternion rot = Quaternion.LookRotation(contact.normal);
+        ParticleSystem ps = Instantiate(prefab, spawnPos, rot);
         Destroy(ps.gameObject, particleLifetime);
     }
 

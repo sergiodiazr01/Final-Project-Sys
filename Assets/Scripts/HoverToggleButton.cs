@@ -16,16 +16,21 @@ public class HoverToggleButton : MonoBehaviour
     private bool isHovering = false;
     private Image image;
 
+    private AudioSource audioSource; // Componente de AudioSource para reproducir sonidos
+    public AudioClip ActiveSound; // Sonido al activar el botón
+    public AudioClip DeactiveSound; // Sonido al desactivar el botón
+
     void Start()
     {
         image = GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
         UpdateVisual();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        {   
             isHovering = true;
         }
     }
@@ -56,6 +61,15 @@ public class HoverToggleButton : MonoBehaviour
     void ToggleState()
     {
         isOn = !isOn;
+
+        if (audioSource != null)
+        {
+            if (isOn && ActiveSound != null)
+                audioSource.PlayOneShot(ActiveSound);
+            else if (!isOn && DeactiveSound != null)
+                audioSource.PlayOneShot(DeactiveSound);
+        }
+        
         UpdateVisual();
         Debug.Log(gameObject.name + " toggled to " + (isOn ? "ON" : "OFF"));
         if (gameObject.name.Contains("PowerUps"))
