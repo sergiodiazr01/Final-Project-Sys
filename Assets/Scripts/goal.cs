@@ -46,9 +46,9 @@ public class goal : MonoBehaviour
             }
             else
             {
-                waveColor = new Color(255f, 0f, 0f / 188f); // onda roja
+                waveColor = new Color(255f / 188f, 0f, 0f); // onda roja
             }
-            GameManager.instance.TriggerShockwave(transform.position, waveColor);
+            GameManager.instance.TriggerShockwave(transform.position + new Vector3(0f, 8f, 0f), waveColor);
 
         }
     }
