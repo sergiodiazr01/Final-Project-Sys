@@ -22,48 +22,64 @@ public class SpecialZoneSpawner : MonoBehaviour
     }
 
     private void SpawnZone()
-{
-    if (zonePrefabs.Length == 0) return;
-
-    const int maxAttempts = 10;
-    const float minDistance = 8f; // distancia mínima entre zonas
-
-    // Tags que identifican zonas especiales activas
-    string[] zoneTags = { "RepulsorZone", "SpeedZone", "TeledirigidaZone" };
-
-    for (int attempt = 0; attempt < maxAttempts; attempt++)
     {
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
-        Vector3 spawnPos = new Vector3(x, spawnY, z);
+        if (zonePrefabs.Length == 0) return;
 
-        bool tooClose = false;
+        const int maxAttempts = 10;
+        const float minDistance = 8f; // distancia mínima entre zonas
+        const float minDistanceFromPuck = 3f; // distancia mínima del puck
 
-        foreach (string tag in zoneTags)
+        // Tags que identifican zonas especiales activas
+        string[] zoneTags = { "RepulsorZone", "SpeedZone", "TeledirigidaZone" };
+
+        GameObject puck = GameObject.FindGameObjectWithTag("Puck");
+
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            foreach (GameObject existing in GameObject.FindGameObjectsWithTag(tag))
+            float x = Random.Range(minX, maxX);
+            float z = Random.Range(minZ, maxZ);
+            Vector3 spawnPos = new Vector3(x, spawnY, z);
+
+            bool tooClose = false;
+
+            // Comprobación de cercanía a zonas existentes
+            foreach (string tag in zoneTags)
             {
-                if (Vector3.Distance(existing.transform.position, spawnPos) < minDistance)
+                foreach (GameObject existing in GameObject.FindGameObjectsWithTag(tag))
+                {
+                    if (Vector3.Distance(existing.transform.position, spawnPos) < minDistance)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                if (tooClose) break;
+            }
+
+            // Comprobación de cercanía al puck
+            if (!tooClose && puck != null)
+            {
+                if (Vector3.Distance(puck.transform.position, spawnPos) < minDistanceFromPuck)
                 {
                     tooClose = true;
-                    break;
                 }
             }
-            if (tooClose) break;
+
+            if (!tooClose)
+            {
+                int index = Random.Range(0, zonePrefabs.Length);
+                GameObject prefab = zonePrefabs[index];
+
+                GameObject zone = Instantiate(prefab, spawnPos, Quaternion.identity, generatedElements);
+                Destroy(zone, zoneLifetime);
+
+                Debug.Log($"Zona instanciada: {prefab.name} en {spawnPos}");
+                return;
+            }
         }
 
-        if (!tooClose)
-        {
-            int index = Random.Range(0, zonePrefabs.Length);
-            GameObject prefab = zonePrefabs[index];
-
-            GameObject zone = Instantiate(prefab, spawnPos, Quaternion.identity, generatedElements);
-            Destroy(zone, zoneLifetime);
-
-            Debug.Log($"Zona instanciada: {prefab.name} en {spawnPos}");
-            return;
-        }
+        Debug.LogWarning("No se encontró una posición válida para una nueva zona.");
     }
-    }
+
 
 }
