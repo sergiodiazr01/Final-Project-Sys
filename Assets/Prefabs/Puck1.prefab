@@ -92,7 +92,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Height: 20
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000011920929}
@@ -177,6 +177,12 @@ MonoBehaviour:
   blueGoalTarget: {fileID: 0}
   forceToGoal: 100
   invertDuration: 5
+  hitMultiplier: 1.2
+  wallElasticity: 0.9
+  hitCooldown: 0.5
+  minHitSpeed: 0.5
+  minPuckHitSpeed: 2
+  wallHitCooldown: 0.5
   hitOnomatopoeiaPrefabs:
   - {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
   onomatopoeiaSurfaceOffset: 0.06

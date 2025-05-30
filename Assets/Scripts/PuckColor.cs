@@ -40,6 +40,25 @@ public class PuckColor : MonoBehaviour
     private bool wasInRepulsorZone = false;
     private Vector3 lastDirectionBeforeZone;
 
+    public float hitMultiplier = 1.2f;   // tweak until it feels right
+    public float wallElasticity = 0.9f;  // 1 = perfect, <1 = a bit of damping
+
+    // Cooldown entre golpes para evitar múltiples OnCollisionEnter en el mismo contacto
+    private float _lastHitTime = -1f;
+    [Tooltip("Segundos mínimos entre dos golpes sucesivos")]
+    public float hitCooldown = 0.5f;
+
+    // Umbral de velocidad mínima para considerar un impacto real
+    [Tooltip("Ignora golpes si la velocidad del paddle es menor")]
+    public float minHitSpeed = 0.5f;
+    public float minPuckHitSpeed = 2f;
+
+    [Header("Rebote pared")]
+    [Tooltip("Segundos mínimos entre dos rebotes contra la pared")]
+    public float wallHitCooldown = 0.5f;
+    private float _lastWallHitTime = -Mathf.Infinity;
+
+
 
     [Tooltip("Prefabs con TextMeshPro que muestran BAM / PUM / ¡POW! …")]
     public GameObject[] hitOnomatopoeiaPrefabs;
@@ -59,6 +78,12 @@ public class PuckColor : MonoBehaviour
     public ParticleSystem blueImpactParticlePrefab;
 
     public float particleLifetime = 1.5f;
+
+    [Header("Progresión de velocidad")]
+    [Tooltip("Aumento de multiplicador por segundo de juego")]
+    public float speedIncreaseRate = 0.08f; // +8% por segundo
+    private float gameTime = 0f;
+    private float gameSpeedMultiplier = 1f;
 
 
     void Start()
@@ -81,13 +106,18 @@ public class PuckColor : MonoBehaviour
 
     void FixedUpdate()
     {
+        // 0) Actualiza temporizador y multiplicador
+        gameTime += Time.fixedDeltaTime;
+        gameSpeedMultiplier = 1f + gameTime * speedIncreaseRate;
+
         // Aplicar fricción artificial
         rb.velocity *= linearFriction;
 
         // Limita la velocidad máxima
-        if (rb.velocity.magnitude > maxVelocity)
+        float scaledMaxVel = maxVelocity * gameSpeedMultiplier;
+        if (rb.velocity.magnitude > scaledMaxVel)
         {
-            rb.velocity = rb.velocity.normalized * maxVelocity;
+            rb.velocity = rb.velocity.normalized * scaledMaxVel;
         }
     }
 
@@ -96,46 +126,73 @@ public class PuckColor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // 1) Cooldown: si chocamos de nuevo antes de hitCooldown, salimos
+            if (Time.time - _lastHitTime < hitCooldown) return;
+            _lastHitTime = Time.time;
+
+            // 2) Velocidad del paddle
+            var tracker = collision.gameObject.GetComponent<PlayerVelocityTracker>();
+            Vector3 paddleVel = tracker?.SmoothedVelocity ?? Vector3.zero;
+            if (paddleVel.magnitude < minHitSpeed) return;  // filtro de golpes suaves
+
+            // 3) Dirección del golpe
+            Vector3 hitDir = (rb.position - collision.transform.position).normalized;
+
+            // 4) Magnitud del nuevo vector
+            float rawSpeed = paddleVel.magnitude * hitMultiplier;
+            rawSpeed *= gameSpeedMultiplier;
+            // Aplica velocidad mínima
+            float newSpeed = Mathf.Max(rawSpeed, minPuckHitSpeed);
+
+            rb.velocity = hitDir * newSpeed;
+
+            // 5) Pequeño empujón extra para “salir” del collider
+            rb.position += hitDir * 0.02f;
+
+            // — el resto de tu FX, sonido y color sale igual —
             lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
-            Debug.Log(lastPlayerTouched);
-
-            Vector3 direction = (rb.position - collision.contacts[0].point).normalized;
-            //float impactSpeed = collision.relativeVelocity.magnitude;
-            //float scaledForce = impactSpeed * hitforce;
-            //rb.AddForce(direction * scaledForce, ForceMode.Impulse);
-            if (isDirectionInverted)
-            {
-                direction.x *= -1f;
-                Debug.Log("Dirección horizontal invertida");
-            }
-            rb.AddForce(direction * hitforce, ForceMode.Impulse);
+            puckRenderer.material.color = lastPlayerTouched.GetTeam() == PlayerTeam.Red
+                                          ? redPlayerColor : bluePlayerColor;
             audioSource.PlayOneShot(hitByPlayerSound);
-
-            /*if (collision.gameObject.CompareTag("PlayerRed"))
-            {
-                Debug.Log("a");
-                puckRenderer.material.color = redPlayerColor;
-            }
-            else if (collision.gameObject.CompareTag("PlayerBlue"))
-            {
-                puckRenderer.material.color = bluePlayerColor;
-            }*/
-            if (lastPlayerTouched != null)
-            {
-                if (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
-                    puckRenderer.material.color = redPlayerColor;
-                else if (lastPlayerTouched.GetTeam() == PlayerTeam.Blue)
-                    puckRenderer.material.color = bluePlayerColor;
-            }
-            ContactPoint cp = collision.contacts[0];  
-            SpawnHitFX(cp);          // Texto
-            SpawnImpactParticles(cp); // Partículas
+            SpawnHitFX(collision.contacts[0]);
+            SpawnImpactParticles(collision.contacts[0]);
+            return;
         }
         else if (collision.gameObject.CompareTag("wall"))
         {
-            if (audioSource != null && wallBounceSound != null)
-                audioSource.PlayOneShot(wallBounceSound);
+            // 0) Cooldown: solo un rebote cada wallHitCooldown segundos
+            if (Time.time - _lastWallHitTime < wallHitCooldown)
+                return;
+            _lastWallHitTime = Time.time;
+
+            ContactPoint contact = collision.contacts[0];
+            Vector3 normal = contact.normal;
+            Vector3 v = rb.velocity;
+
+            // 1) Descompón la velocidad en normal y tangente
+            Vector3 vNormal = Vector3.Dot(v, normal) * normal;
+            Vector3 vTangent = v - vNormal;
+
+            // 2) Refleja solo la componente normal e invierte su signo
+            Vector3 reflectedNormal = -vNormal * wallElasticity;
+
+            // 3) Reconstruye la velocidad: conservas la tangencial (sin fricción)
+            Vector3 newVelocity = vTangent + reflectedNormal;
+
+            // 4) (Opcional) fuerza una velocidad mínima si quieres:
+            float minBounceSpeed = 10f;
+            if (newVelocity.magnitude < minBounceSpeed)
+                newVelocity = newVelocity.normalized * minBounceSpeed;
+
+            rb.velocity = newVelocity;
+
+            // 5) Separa un poco el puck para evitar colisiones repetidas
+            float penetrationOffset = 0.5f;
+            rb.position += normal * penetrationOffset;
+
+            audioSource.PlayOneShot(wallBounceSound);
         }
+
 
 
     }

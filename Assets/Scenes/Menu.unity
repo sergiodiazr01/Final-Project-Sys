@@ -2050,7 +2050,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6e4c0087a85833a40995257b8635d94c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2410,6 +2410,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &483883240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3673,6 +3674,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &763629981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4403,6 +4405,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 1
 --- !u!4 &1144356990
 Transform:
   m_ObjectHideFlags: 0
@@ -4471,6 +4474,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &1151668550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4861,6 +4865,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1304957655
 GameObject:
   m_ObjectHideFlags: 0
@@ -5354,6 +5359,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1448092806
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,6 +5745,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1483708435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6018,6 +6025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511745701}
   - component: {fileID: 1511745705}
+  - component: {fileID: 1511745706}
   - component: {fileID: 1511745704}
   - component: {fileID: 1511745703}
   - component: {fileID: 1511745702}
@@ -6107,10 +6115,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   q: {x: 0, y: 0, z: 0, w: 0}
-  manual: 1
+  manual: 0
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 1
+--- !u!114 &1511745706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511745700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9612708b8becb174d9eab02db80fd8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bufferSize: 10
 --- !u!1 &1554760525
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,6 +6184,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &1554760528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7620,6 +7643,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1866559963
 GameObject:
   m_ObjectHideFlags: 0

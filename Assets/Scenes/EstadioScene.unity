@@ -2636,8 +2636,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: -7}
 --- !u!1 &332337755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3290,11 +3290,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463686139}
-  - component: {fileID: 463686143}
+  - component: {fileID: 463686145}
   - component: {fileID: 463686142}
   - component: {fileID: 463686141}
   - component: {fileID: 463686140}
   - component: {fileID: 463686144}
+  - component: {fileID: 463686143}
   m_Layer: 0
   m_Name: Player2M
   m_TagString: Player
@@ -3377,14 +3378,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 463686138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb442334999fb84487442a2b692a37f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9612708b8becb174d9eab02db80fd8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  q: {x: 0, y: 0, z: 0, w: 0}
-  manual: 0
-  insideValidZone: 0
-  limitX: {x: -44, y: 44}
-  limitZ: {x: -24, y: 24}
+  bufferSize: 2
 --- !u!82 &463686144
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3481,6 +3478,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &463686145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463686138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb442334999fb84487442a2b692a37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  q: {x: 0, y: 0, z: 0, w: 0}
+  manual: 0
+  insideValidZone: 0
+  limitX: {x: -44, y: 44}
+  limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &483883237
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3547,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &483883240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4175,6 +4191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 564666844}
   - component: {fileID: 564666846}
+  - component: {fileID: 564666850}
   - component: {fileID: 564666845}
   - component: {fileID: 564666847}
   - component: {fileID: 564666848}
@@ -4238,10 +4255,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   q: {x: 0, y: 0, z: 0, w: 0}
-  manual: 1
+  manual: 0
   insideValidZone: 0
   limitX: {x: -44, y: 44}
-  limitZ: {x: -24, y: 24}
+  limitZ: {x: -32, y: 32}
+  isMenu: 0
 --- !u!65 &564666847
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4365,6 +4383,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &564666850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564666843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9612708b8becb174d9eab02db80fd8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bufferSize: 2
 --- !u!1 &569510989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,6 +5863,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &763629981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7376,6 +7408,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &1151668550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7625,7 +7658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7452290917272269700, guid: ab1203763b8929c4dba5f5097e8f8d21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.966955
+      value: 18.27
       objectReference: {fileID: 0}
     - target: {fileID: 7452290917272269700, guid: ab1203763b8929c4dba5f5097e8f8d21, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7953,6 +7986,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1304957655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8903,6 +8937,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!54 &1440896353
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9328,6 +9363,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!54 &1471923281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9900,6 +9936,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!65 &1554760528
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11343,8 +11380,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: 6}
 --- !u!4 &1772453882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3169668576073457521, guid: cf22a2db10f09a34495e9f83913738c8, type: 3}
@@ -11392,8 +11429,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: -8}
 --- !u!1001 &1808829478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11964,6 +12001,7 @@ MonoBehaviour:
   insideValidZone: 0
   limitX: {x: -44, y: 44}
   limitZ: {x: -24, y: 24}
+  isMenu: 0
 --- !u!1 &1866559963
 GameObject:
   m_ObjectHideFlags: 0
@@ -12477,7 +12515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 3.857148
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12485,7 +12523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.7
+      value: 45.307404
       objectReference: {fileID: 0}
     - target: {fileID: 489207254510423165, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12528,9 +12566,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 397555218}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: wallElasticity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: minPuckHitSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitByPlayerSound
       value: 
       objectReference: {fileID: 8300000, guid: dd936edc97e67e849a6bb82570f65976, type: 3}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: speedIncreaseRate
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitOnomatopoeiaPrefabs.Array.size
       value: 1
@@ -13233,7 +13283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035320729}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -48.3, y: 9.3, z: 16}
+  m_LocalPosition: {x: -47.961117, y: 9.3, z: 16}
   m_LocalScale: {x: 94.00906, y: 12.2936, z: 1}
   m_Children: []
   m_Father: {fileID: 1329895337}
@@ -13250,8 +13300,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: 5}
 --- !u!1 &2041817075
 GameObject:
   m_ObjectHideFlags: 0

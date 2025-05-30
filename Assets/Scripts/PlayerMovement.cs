@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Restricción de mapa")]
     public Vector2 limitX = new Vector2(-44f, 44f);
     public Vector2 limitZ = new Vector2(-24f, 24f);
+    public bool isMenu = false;
 
     void Start()
     {
@@ -43,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetPosition(Vector3 pos)
     {
+        if (isMenu)
+        {
+            transform.position = pos;
+            return;
+        }
+        if (true)
+        {
         // Comprobamos si el tracking original está dentro de los límites
         bool withinX = (pos.x >= limitX.x && pos.x <= limitX.y);
         bool withinZ = (pos.z >= limitZ.x && pos.z <= limitZ.y);
@@ -54,11 +62,16 @@ public class PlayerMovement : MonoBehaviour
 
         // Aplicamos la posición final (manteniendo la Y actual)
         transform.position = new Vector3(clampedX, transform.position.y, clampedZ);
+        }
 
     }
 
     private void LateUpdate()
     {
+        if (isMenu)
+        {
+            return;
+        }
         Vector3 position = transform.position;
 
         // Clamp global
