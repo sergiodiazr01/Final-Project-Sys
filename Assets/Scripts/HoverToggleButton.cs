@@ -11,7 +11,7 @@ public class HoverToggleButton : MonoBehaviour
     public Sprite offSprite;
     public float hoverTime = 2f;
 
-    private bool isOn = false;
+    private bool isOn = true;
     private float timer = 0f;
     private bool isHovering = false;
     private Image image;

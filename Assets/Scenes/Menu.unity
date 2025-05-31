@@ -1101,80 +1101,6 @@ MonoBehaviour:
   - {fileID: 92382418}
   - {fileID: 728008895}
   - {fileID: 1304957657}
---- !u!1 &238585812
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 238585813}
-  - component: {fileID: 238585814}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &238585813
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238585812}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1655889695}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238585814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238585812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e3645609410a3049aaccdefc8dc9e17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puckPrefab: {fileID: 0}
-  redScore: 0
-  blueScore: 0
-  scoreToWin: 5
-  redScoreText: {fileID: 0}
-  blueScoreText: {fileID: 0}
-  winText: {fileID: 0}
-  menuCanvas: {fileID: 0}
-  gameObjects: {fileID: 0}
-  scoreCanvas: {fileID: 0}
-  startButton: {fileID: 0}
-  directionalLight: {fileID: 0}
-  skipMenu: 0
-  mapRenderer: {fileID: 0}
-  mapMaterials: []
-  powerUpOption: {fileID: 0}
-  obstacleOption: {fileID: 0}
-  specialZoneOption: {fileID: 0}
-  powerUpEnabled: 0
-  obstacleEnabled: 0
-  specialZoneEnabled: 0
-  puckContainer: {fileID: 0}
-  intervalGame: 5
-  shockwavePrefab: {fileID: 0}
-  countdownSound: {fileID: 0}
-  WinSound: {fileID: 0}
-  redVictoryImage: {fileID: 0}
-  blueVictoryImage: {fileID: 0}
-  powerUpSpawner: {fileID: 0}
-  specialZoneSpawner: {fileID: 0}
-  obstacleSpawner: {fileID: 0}
 --- !u!1 &246456112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,17 +2060,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &357952150 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 162771281658576334, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
-  m_PrefabInstance: {fileID: 1645259112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469834303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &428189361
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3681,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1655889695}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &832256921
 MonoBehaviour:
@@ -4388,6 +4303,9 @@ MonoBehaviour:
   resizeDuration: 2
   growSound: {fileID: 0}
   decreaseSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
+  sizeBoostSound: {fileID: 0}
+  shieldSound: {fileID: 0}
 --- !u!114 &1144356989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5101,17 +5019,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1393670391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 162771281065147983, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
-  m_PrefabInstance: {fileID: 1645259112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322214202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1425857998
 GameObject:
   m_ObjectHideFlags: 0
@@ -6102,6 +6009,9 @@ MonoBehaviour:
   resizeDuration: 2
   growSound: {fileID: 0}
   decreaseSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
+  sizeBoostSound: {fileID: 0}
+  shieldSound: {fileID: 0}
 --- !u!114 &1511745705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7200,23 +7110,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2126493649}
   - {fileID: 832256920}
-  - {fileID: 238585813}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1725042448 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 162771281745037717, guid: a643b1b3954d2c94a8ddc6c50b8e2f30, type: 3}
-  m_PrefabInstance: {fileID: 1645259112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003427854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7372c03cae143c4dac76b75488b037d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1741870968
 GameObject:
   m_ObjectHideFlags: 1
@@ -9092,51 +8989,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062634166}
   m_CullTransparentMesh: 1
---- !u!1 &2126493648
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2126493649}
-  - component: {fileID: 2126493650}
-  m_Layer: 0
-  m_Name: MenuManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2126493649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126493648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1655889695}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2126493650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126493648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73825d6c3e251b7429f5a6bb8d87569d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUpOption: {fileID: 357952150}
-  obstacleOption: {fileID: 1393670391}
-  specialZoneOption: {fileID: 1725042448}
-  mapSelector: {fileID: 832256921}
-  startButton: {fileID: 0}
