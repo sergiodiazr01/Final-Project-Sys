@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip growSound; // Sonido de crecer
     public AudioClip decreaseSound; // Sonido de decrecer
 
+    public AudioClip powerUpSound; // Sonido de power-up
+    public AudioClip sizeBoostSound; // Sonido de aumento de tamaño
+    public AudioClip shieldSound; // Sonido del escudo
 
     private void Start()
     {
@@ -171,7 +174,7 @@ public class PlayerController : MonoBehaviour
         }
         isSizeBoosted = false;
     }
-    
+
     public void ActivateGoalShield(float duration = 5f)
     {
         if (goalShield != null)
@@ -181,7 +184,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ShieldCoroutine(float duration)
     {
         Collider shieldCollider = goalShield.GetComponent<Collider>();
-        
+
         if (shieldCollider != null)
             shieldCollider.enabled = true;  // ACTIVAR el collider
 
@@ -197,6 +200,28 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Escudo desactivado");
     }
 
+    public void PlaySoundPowerUp()
+    {
+        if (audioSource != null && powerUpSound != null)
+        {
+            audioSource.PlayOneShot(powerUpSound);
+        }
+    }
 
+    public void PlaySoundGrow()
+    {
+        if (audioSource != null && growSound != null)
+        {
+            audioSource.PlayOneShot(growSound);
+        }
+    }
+
+    public void PlaySoundShield()
+    {
+        if (audioSource != null && shieldSound != null)
+        {
+            audioSource.PlayOneShot(shieldSound);
+        }
+    }
 
 }

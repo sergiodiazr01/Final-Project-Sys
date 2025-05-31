@@ -167,7 +167,7 @@ MonoBehaviour:
   maxVelocity: 50
   speedZoneMultiplier: 5
   hitforce: 50
-  linearFriction: 0.99
+  linearFriction: 0.9995
   hitByPlayerSound: {fileID: 8300000, guid: dd936edc97e67e849a6bb82570f65976, type: 3}
   wallBounceSound: {fileID: 8300000, guid: 6675d5777f20a07418be7bf0b83cdf82, type: 3}
   speedSound: {fileID: 8300000, guid: 33e01d5d466f8fd4fb97c83544317bd6, type: 3}
@@ -178,11 +178,11 @@ MonoBehaviour:
   forceToGoal: 100
   invertDuration: 5
   hitMultiplier: 1.2
-  wallElasticity: 0.9
+  wallElasticity: 1
   hitCooldown: 0.5
-  minHitSpeed: 0.5
+  minHitSpeed: 0
   minPuckHitSpeed: 2
-  wallHitCooldown: 0.5
+  wallHitCooldown: 1
   hitOnomatopoeiaPrefabs:
   - {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
   onomatopoeiaSurfaceOffset: 0.06
@@ -193,6 +193,7 @@ MonoBehaviour:
   redImpactParticlePrefab: {fileID: 6090531381606113675, guid: 13fa980b8c224c241b4e4242df025f3d, type: 3}
   blueImpactParticlePrefab: {fileID: 6090531381606113675, guid: 215df97fc4bf5d5458798160dbbf836b, type: 3}
   particleLifetime: 1.5
+  speedIncreaseRate: 0.08
 --- !u!82 &4370923268126289884
 AudioSource:
   m_ObjectHideFlags: 0

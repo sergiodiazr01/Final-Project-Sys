@@ -17,6 +17,7 @@ TagManager:
   - BlueMitad
   - RedMitad
   - RepulsorZone
+  - Obstacle
   layers:
   - Default
   - TransparentFX

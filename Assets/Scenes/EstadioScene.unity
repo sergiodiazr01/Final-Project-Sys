@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &11427230
 Transform:
   m_ObjectHideFlags: 0
@@ -753,7 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -66.18003
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1190,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -66.88616
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2553,7 +2553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.642519
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3135,7 +3135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -65.833206
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3311,7 +3311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463686138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.86, y: 0.83073, z: 0}
+  m_LocalPosition: {x: -5.2, y: 0.8, z: -1.9}
   m_LocalScale: {x: 2.5029397, y: 1.2004, z: 2.8414822}
   m_Children:
   - {fileID: 851729339}
@@ -3369,6 +3369,9 @@ MonoBehaviour:
   resizeDuration: 2
   growSound: {fileID: 8300000, guid: b513ccc3de3899d43b2a56b796953787, type: 3}
   decreaseSound: {fileID: 8300000, guid: f7eec5b2985e4b24c9135f01c3fa7522, type: 3}
+  powerUpSound: {fileID: 8300000, guid: 6320ca80296e83c4a830faa7a8764ab5, type: 3}
+  sizeBoostSound: {fileID: 8300000, guid: cf8dd714e93d2ef4c87b3d6eb948a632, type: 3}
+  shieldSound: {fileID: 8300000, guid: 350ae461543f38744b1ed003c63c9e95, type: 3}
 --- !u!114 &463686143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3885,7 +3888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -49.746986
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3893,7 +3896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -66.68739
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3980,8 +3983,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 20, y: 1, z: 1}
+  m_Center: {x: -8, y: 0, z: 0}
 --- !u!23 &535202435
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4211,7 +4214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564666843}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.14, y: 1.44, z: 0}
+  m_LocalPosition: {x: 5.8, y: 1.4, z: 0.3}
   m_LocalScale: {x: 2.5029397, y: 1.2004, z: 2.8414822}
   m_Children:
   - {fileID: 581096657}
@@ -4242,6 +4245,9 @@ MonoBehaviour:
   resizeDuration: 2
   growSound: {fileID: 8300000, guid: b513ccc3de3899d43b2a56b796953787, type: 3}
   decreaseSound: {fileID: 8300000, guid: f7eec5b2985e4b24c9135f01c3fa7522, type: 3}
+  powerUpSound: {fileID: 8300000, guid: 6320ca80296e83c4a830faa7a8764ab5, type: 3}
+  sizeBoostSound: {fileID: 8300000, guid: cf8dd714e93d2ef4c87b3d6eb948a632, type: 3}
+  shieldSound: {fileID: 8300000, guid: 350ae461543f38744b1ed003c63c9e95, type: 3}
 --- !u!114 &564666846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7832,7 +7838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.841288
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8624,8 +8630,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 20, y: 1, z: 1}
+  m_Center: {x: 8, y: 0, z: 0}
 --- !u!23 &1429405263
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8976,6 +8982,9 @@ MonoBehaviour:
   resizeDuration: 1
   growSound: {fileID: 0}
   decreaseSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
+  sizeBoostSound: {fileID: 0}
+  shieldSound: {fileID: 0}
 --- !u!1 &1448092806
 GameObject:
   m_ObjectHideFlags: 0
@@ -9402,6 +9411,9 @@ MonoBehaviour:
   resizeDuration: 1
   growSound: {fileID: 0}
   decreaseSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
+  sizeBoostSound: {fileID: 0}
+  shieldSound: {fileID: 0}
 --- !u!1 &1473063721
 GameObject:
   m_ObjectHideFlags: 0
@@ -10791,7 +10803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.348646
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11452,7 +11464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.695475
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8435225891291756128, guid: 288bff42e8e9b5a42bf0557e4e230fa0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12558,6 +12570,10 @@ PrefabInstance:
       value: Puck
       objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: redGoalTarget
       value: 
       objectReference: {fileID: 1564017023}
@@ -12565,6 +12581,10 @@ PrefabInstance:
       propertyPath: blueGoalTarget
       value: 
       objectReference: {fileID: 397555218}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: linearFriction
+      value: 0.9995
+      objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: wallElasticity
       value: 1
@@ -12579,7 +12599,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: dd936edc97e67e849a6bb82570f65976, type: 3}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: speedIncreaseRate
-      value: 0.05
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitOnomatopoeiaPrefabs.Array.size

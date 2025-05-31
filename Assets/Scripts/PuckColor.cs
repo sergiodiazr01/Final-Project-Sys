@@ -115,6 +115,11 @@ public class PuckColor : MonoBehaviour
 
         // Limita la velocidad máxima
         float scaledMaxVel = maxVelocity * gameSpeedMultiplier;
+        if (scaledMaxVel > 120f)
+        {
+            scaledMaxVel = 120f; // Limita la velocidad máxima a 180 unidades
+        }
+        
         if (rb.velocity.magnitude > scaledMaxVel)
         {
             rb.velocity = rb.velocity.normalized * scaledMaxVel;
@@ -192,7 +197,45 @@ public class PuckColor : MonoBehaviour
 
             audioSource.PlayOneShot(wallBounceSound);
         }
+    else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            // 3.1) (Opcional) Cooldown entre rebotes con obstáculos
+            if (Time.time - _lastWallHitTime < wallHitCooldown)
+                return;
+            _lastWallHitTime = Time.time;
 
+            ContactPoint contact = collision.contacts[0];
+            Vector3 normal = contact.normal;
+            Vector3 v = rb.velocity;
+
+            // 3.2) Descomponer igual que con la pared
+            Vector3 vNormal  = Vector3.Dot(v, normal) * normal;
+            Vector3 vTangent = v - vNormal;
+
+            // 3.3) Reflejar la normal con elasticidad de obstáculo (quizá distinta a la pared)
+            float obstacleElasticity = 0.8f;  // por ejemplo, 0.8 para un rebote menos elástico
+            Vector3 reflectedNormal = -vNormal * obstacleElasticity;
+
+            // 3.4) Reconstruir velocidad
+            Vector3 newVelocity = vTangent + reflectedNormal;
+
+            // 3.5) (Opcional) Velocidad mínima de rebote
+            float minObstacleBounce = 8f;
+            if (newVelocity.magnitude < minObstacleBounce)
+                newVelocity = newVelocity.normalized * minObstacleBounce;
+
+            rb.velocity = newVelocity;
+
+            // 3.6) Separar un poco al puck fuera del obstáculo
+            float penetrationOffset = 0.3f;  // un poco menos que con la pared
+            rb.position += normal * penetrationOffset;
+
+            // 3.7) Sonido de rebote contra obstáculo (puedes usar el mismo que la pared o otro distinto)
+            if (audioSource != null && wallBounceSound != null)
+                audioSource.PlayOneShot(wallBounceSound);
+
+            return;
+        }
 
 
     }
@@ -203,7 +246,7 @@ public class PuckColor : MonoBehaviour
         int prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
 
         // Posición exacta del impacto, desplazada hacia afuera
-        Vector3 spawnPos = contact.point + contact.normal * onomatopoeiaSurfaceOffset;
+        Vector3 spawnPos = new Vector3(0, 10, 0) + contact.point + contact.normal * onomatopoeiaSurfaceOffset;
 
         // Yaw depende del último jugador que tocó el puck
         float yaw = 0f;
