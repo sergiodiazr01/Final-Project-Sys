@@ -19,14 +19,14 @@ public class MapSelectorManager : MonoBehaviour
 
     public void NextMap()
     {
-        index = (index + 1);
+        index = (index + 1) % mapTextures.Length;
         UpdateMap();
         GameSettings.MapIndex = index;
     }
 
     public void PreviousMap()
     {
-        index = (index - 1 + mapTextures.Length);
+        index = (index - 1 + mapTextures.Length) % mapTextures.Length;
         UpdateMap();
         GameSettings.MapIndex = index;
     }
