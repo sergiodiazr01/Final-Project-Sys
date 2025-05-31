@@ -192,7 +192,7 @@ public class PuckColor : MonoBehaviour
             rb.velocity = newVelocity;
 
             // 5) Separa un poco el puck para evitar colisiones repetidas
-            float penetrationOffset = 0.5f;
+            float penetrationOffset = 0f;
             rb.position += normal * penetrationOffset;
 
             audioSource.PlayOneShot(wallBounceSound);
