@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3930474970266505572}
   - component: {fileID: 5456892458627409992}
   m_Layer: 0
-  m_Name: PAM!
+  m_Name: BOOM!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PAM!
+  m_text: 'BOOM!
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b4f1faa45780664aa36f611a7bee260, type: 2}
   m_sharedMaterial: {fileID: 4226122942827337231, guid: 5b4f1faa45780664aa36f611a7bee260, type: 2}

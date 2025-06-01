@@ -185,6 +185,8 @@ MonoBehaviour:
   wallHitCooldown: 1
   hitOnomatopoeiaPrefabs:
   - {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
+  - {fileID: 7013601634557891969, guid: ba6f18e5c3a630f42a895f670db561bd, type: 3}
+  - {fileID: 7013601634557891969, guid: bca17443d995fdd4f9e630714a39c41b, type: 3}
   onomatopoeiaSurfaceOffset: 0.06
   onomatopoeiaLifetime: 1.2
   textPitch: 90

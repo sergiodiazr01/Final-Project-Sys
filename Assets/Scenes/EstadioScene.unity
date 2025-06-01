@@ -4214,7 +4214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564666843}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.8, y: 1.4, z: 0.3}
+  m_LocalPosition: {x: 4.1, y: 1.4, z: -3.7}
   m_LocalScale: {x: 2.5029397, y: 1.2004, z: 2.8414822}
   m_Children:
   - {fileID: 581096657}
@@ -12603,12 +12603,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitOnomatopoeiaPrefabs.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: hitOnomatopoeiaPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 7013601634557891969, guid: 9cbaffb44c0b0414eaf962f4dd9619e1, type: 3}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: hitOnomatopoeiaPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7013601634557891969, guid: ba6f18e5c3a630f42a895f670db561bd, type: 3}
+    - target: {fileID: 4370923268126289885, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
+      propertyPath: hitOnomatopoeiaPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 7013601634557891969, guid: bca17443d995fdd4f9e630714a39c41b, type: 3}
     - target: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
       propertyPath: m_Name
       value: Puck1

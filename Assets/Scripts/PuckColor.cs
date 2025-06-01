@@ -85,6 +85,7 @@ public class PuckColor : MonoBehaviour
     private float gameTime = 0f;
     private float gameSpeedMultiplier = 1f;
 
+    private int lastOnomatopoeiaIndex = -1;
 
     void Start()
     {
@@ -243,7 +244,11 @@ public class PuckColor : MonoBehaviour
     void SpawnHitFX(ContactPoint contact)
     {
         if (hitOnomatopoeiaPrefabs == null || hitOnomatopoeiaPrefabs.Length == 0) return;
-        int prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
+        int prefabIndex;
+        do {
+            prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
+        } while (hitOnomatopoeiaPrefabs.Length > 1 && prefabIndex == lastOnomatopoeiaIndex);
+        lastOnomatopoeiaIndex = prefabIndex;
 
         // Posición exacta del impacto, desplazada hacia afuera
         Vector3 spawnPos = new Vector3(0, 10, 0) + contact.point + contact.normal * onomatopoeiaSurfaceOffset;
