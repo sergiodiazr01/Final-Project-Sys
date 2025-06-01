@@ -12,9 +12,16 @@ public class PowerUpBox : MonoBehaviour
     public AudioClip GrowSound; // Sonido del puck extra
     public AudioClip ShieldSound; // Sonido del aumento de tamaño
 
-    public Material shieldMaterial;
-    public Material growMaterial;
-    public Material duplicateMaterial;
+    [Header("Materiales para cada caso")]
+    public Material powerUpShield;
+    public Material player4Material;
+
+    public Material powerUpIncrease;
+    public Material revZoneMaterial;
+
+    public Material powerUpDuplicate;
+    public Material player3Material;
+
     private int powerType;
     private Renderer boxRenderer;
 
@@ -31,13 +38,13 @@ public class PowerUpBox : MonoBehaviour
             switch (powerType)
             {
                 case 1:  // Escudo
-                    boxRenderer.material = shieldMaterial;
+                    AssignThreeMaterials(powerUpShield, powerUpShield, player4Material);
                     break;
                 case 2:  // Duplicar puck
-                    boxRenderer.material = duplicateMaterial;
+                    AssignThreeMaterials(powerUpDuplicate, powerUpDuplicate, revZoneMaterial);
                     break;
                 case 3:  // Crecimiento
-                    boxRenderer.material = growMaterial;
+                    AssignThreeMaterials(powerUpIncrease, powerUpIncrease, player3Material);
                     break;
             }
         }
@@ -69,12 +76,9 @@ public class PowerUpBox : MonoBehaviour
             // Activar power-up al jugador
             //puck.lastPlayerTouched.ActivatePowerUp();
 
-            int randomPower = Random.Range(1, 4);
-            // Forzar solo powerup boxes
-            // randomPower = 3;
-            Renderer rend = GetComponent<Renderer>();
+            //Renderer rend = GetComponent<Renderer>();
 
-            if (randomPower == 1)
+            if (powerType == 1)
             {
                 
                 if (puckScript != null && puckScript.lastPlayerTouched != null)
@@ -83,9 +87,9 @@ public class PowerUpBox : MonoBehaviour
                     puckScript.lastPlayerTouched.ActivateGoalShield();
                     Debug.Log("Power-Up: Escudo activado en portería del jugador");
                 }
-                rend.material = shieldMaterial;
+                //rend.material = powerUpShield;
             }
-            else if (randomPower == 2)
+            else if (powerType == 2)
             {
 
                 GameObject newPuck = Instantiate(extraPuckPrefab, other.transform.position, Quaternion.identity);
@@ -94,18 +98,20 @@ public class PowerUpBox : MonoBehaviour
                 {
                     newPuck.transform.SetParent(puckContainer);
                 }
+                // Obtenemos el script PuckColor del nuevo puck
+                PuckColor newPuckScript = newPuck.GetComponent<PuckColor>();
 
                 Rigidbody rb = newPuck.GetComponent<Rigidbody>();
                 
-                if (puckScript != null)
+                if (newPuckScript != null)
                 {
                     Transform redGoal = GameObject.Find("redGoal")?.transform;
                     Transform blueGoal = GameObject.Find("blueGoal")?.transform;
 
                     if (redGoal != null && blueGoal != null)
                     {
-                        puckScript.redGoalTarget = redGoal;
-                        puckScript.blueGoalTarget = blueGoal;
+                        newPuckScript.redGoalTarget = redGoal;
+                        newPuckScript.blueGoalTarget = blueGoal;
                     }
                     else
                     {
@@ -115,9 +121,9 @@ public class PowerUpBox : MonoBehaviour
 
                 Debug.Log("Nuevo puck creado");
 
-                puckScript.ActivateAutoDestruct(extraPuckLifetime);
+                newPuckScript.ActivateAutoDestruct(extraPuckLifetime);
             }
-            else if (randomPower == 3)
+            else if (powerType == 3)
             {
                 
                 Debug.Log("lastPlayerTouched: " + puckScript.lastPlayerTouched);
@@ -142,6 +148,16 @@ public class PowerUpBox : MonoBehaviour
         }
     }
 
-  
+    private void AssignThreeMaterials(Material m0, Material m1, Material m2)
+    {
+        int slots = 3;
+        Material[] arr = new Material[slots];
+        arr[0] = m0;
+        arr[1] = m1;
+        arr[2] = m2;
+        boxRenderer.materials = arr;
+    }
+
+
 
 }

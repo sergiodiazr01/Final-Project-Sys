@@ -81,9 +81,12 @@ MonoBehaviour:
   powerUpSound: {fileID: 8300000, guid: 6320ca80296e83c4a830faa7a8764ab5, type: 3}
   GrowSound: {fileID: 8300000, guid: cf8dd714e93d2ef4c87b3d6eb948a632, type: 3}
   ShieldSound: {fileID: 8300000, guid: 350ae461543f38744b1ed003c63c9e95, type: 3}
-  shieldMaterial: {fileID: 2100000, guid: 13634b300073bd348b0c5613ba041776, type: 2}
-  growMaterial: {fileID: 2100000, guid: 59cddc92070bde842b6cef81e33410f2, type: 2}
-  duplicateMaterial: {fileID: 2100000, guid: 1bac597597bdd694aa9060e3b98f5e88, type: 2}
+  powerUpShield: {fileID: 2100000, guid: 13634b300073bd348b0c5613ba041776, type: 2}
+  player4Material: {fileID: 2100000, guid: 05f607150a9af1240a5e77abe306db36, type: 2}
+  powerUpIncrease: {fileID: 2100000, guid: 59cddc92070bde842b6cef81e33410f2, type: 2}
+  revZoneMaterial: {fileID: 2100000, guid: 5da9ca92cefd8d343b98a83787f36f22, type: 2}
+  powerUpDuplicate: {fileID: 2100000, guid: 1bac597597bdd694aa9060e3b98f5e88, type: 2}
+  player3Material: {fileID: 2100000, guid: 68349064c8eb9504c8546ef4bff6f311, type: 2}
 --- !u!82 &1275328429833095299
 AudioSource:
   m_ObjectHideFlags: 0
@@ -229,6 +232,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9f56a6524ddcfd45a18be49a654392e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d9f56a6524ddcfd45a18be49a654392e, type: 3}
+      propertyPath: m_Materials.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d9f56a6524ddcfd45a18be49a654392e, type: 3}
