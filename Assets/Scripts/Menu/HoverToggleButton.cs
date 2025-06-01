@@ -16,9 +16,9 @@ public class HoverToggleButton : MonoBehaviour
     private bool isHovering = false;
     private Image image;
 
-    private AudioSource audioSource; // Componente de AudioSource para reproducir sonidos
-    public AudioClip ActiveSound; // Sonido al activar el botón
-    public AudioClip DeactiveSound; // Sonido al desactivar el botón
+    private AudioSource audioSource; 
+    public AudioClip ActiveSound; //sonido al activar el boton
+    public AudioClip DeactiveSound; //sonido al desactivar el boton
 
     void Start()
     {
@@ -53,7 +53,7 @@ public class HoverToggleButton : MonoBehaviour
             {
                 ToggleState();
                 timer = 0f;
-                isHovering = false; // evita repeticiones si el jugador se queda encima
+                isHovering = false; //evita repeticiones si el jugador se queda encima
             }
         }
     }

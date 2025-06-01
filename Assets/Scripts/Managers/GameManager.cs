@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public Transform puckContainer;
 
     [Header("Intervalo entre goles")]
-    public float intervalGame = 5f; // Tiempo de pausa entre goles antes del respawn
+    public float intervalGame = 5f; //tiempo de pausa entre goles antes del respawn del puck
     public GameObject shockwavePrefab;
 
     private AudioSource audioSource;
@@ -102,9 +102,8 @@ public class GameManager : MonoBehaviour
         if (!obstacleEnabled && obstacleSpawner != null)
             obstacleSpawner.gameObject.SetActive(false);
 
-        // Selecciona el mapa
-
-        // Activa UI de juego
+        
+        //activar UI de juego
         scoreCanvas.SetActive(true);
         gameObjects.SetActive(true);
         audioSource = GetComponent<AudioSource>();
@@ -173,7 +172,7 @@ public class GameManager : MonoBehaviour
         if (scoreCanvas != null)
             scoreCanvas.SetActive(false);
 
-        // Desactivar el contenedor principal de juego
+        //desactivar gameobjects 
         if (gameObjects != null)
         {
             gameObjects.SetActive(false);
@@ -182,7 +181,7 @@ public class GameManager : MonoBehaviour
         if (directionalLight) directionalLight.enabled = false;
         //Time.timeScale = 0f;
 
-        // Ya no hace falta activar menuCanvas ni gameObjects aquí
+        
         if (directionalLight != null)
             directionalLight.enabled = false;
     }
@@ -196,7 +195,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator RespawnPuckCoroutine(float delay)
     {
         yield return new WaitForSeconds(delay);
-        // Eliminar todos los pucks existentes en el contenedor
+        //eliminar todos los pucks del container
         if (puckContainer != null)
         {
             foreach (Transform child in puckContainer)
@@ -227,9 +226,9 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        Time.timeScale = 1f;  // Asegúrate de que el tiempo no esté pausado
+        Time.timeScale = 1f;  
         SceneManager.LoadScene("Menu");
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reinicia la escena actual
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -237,21 +236,21 @@ public class GameManager : MonoBehaviour
         if (scene.name != "EstadioScene")
             return;
 
-        // 1) Leer ajustes
+        //ajustes
         selectedMapIndex = GameSettings.MapIndex;
         powerUpEnabled = GameSettings.PowerUpEnabled;
         specialZoneEnabled = GameSettings.SpecialZoneEnabled;
         obstacleEnabled = GameSettings.ObstacleEnabled;
 
-        // 2) Activar estadio
+        //activar estadio
         mapRenderer.material = mapMaterials[selectedMapIndex];
 
-        // 3) Activar/desactivar spawners
+        //activar/desactivar spawners
         if (powerUpSpawner != null) powerUpSpawner.gameObject.SetActive(powerUpEnabled);
         if (specialZoneSpawner != null) specialZoneSpawner.gameObject.SetActive(specialZoneEnabled);
         if (obstacleSpawner != null) obstacleSpawner.gameObject.SetActive(obstacleEnabled);
 
-        // 4) Reset de marcadores y UI
+        //reset de marcadores y UI
         redScore = blueScore = 0;
         UpdateUI();
         scoreCanvas?.SetActive(true);

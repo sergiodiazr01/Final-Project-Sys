@@ -7,7 +7,7 @@ public class PowerUpSpawner : MonoBehaviour
     public float spawnY = 0.5f;
 
     public GameObject powerUpBoxPrefab;
-    public float spawnInterval = 10f; // tiempo entre spawns
+    public float spawnInterval = 10f; //tiempo entre spawns
 
     public Transform generatedElements;
 

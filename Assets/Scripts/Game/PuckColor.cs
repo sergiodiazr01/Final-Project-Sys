@@ -40,15 +40,15 @@ public class PuckColor : MonoBehaviour
     private bool wasInRepulsorZone = false;
     private Vector3 lastDirectionBeforeZone;
 
-    public float hitMultiplier = 1.2f;   // tweak until it feels right
-    public float wallElasticity = 0.9f;  // 1 = perfect, <1 = a bit of damping
+    public float hitMultiplier = 1.2f;   
+    public float wallElasticity = 0.9f; 
 
-    // Cooldown entre golpes para evitar múltiples OnCollisionEnter en el mismo contacto
+    //cooldown entre golpes para evitar múltiples OnCollisionEnter en el mismo contacto
     private float _lastHitTime = -1f;
     [Tooltip("Segundos mínimos entre dos golpes sucesivos")]
     public float hitCooldown = 0.5f;
 
-    // Umbral de velocidad mínima para considerar un impacto real
+    //velocidad minima para considerar impacto
     [Tooltip("Ignora golpes si la velocidad del paddle es menor")]
     public float minHitSpeed = 0.5f;
     public float minPuckHitSpeed = 2f;
@@ -85,7 +85,7 @@ public class PuckColor : MonoBehaviour
 
     [Header("Progresión de velocidad")]
     [Tooltip("Aumento de multiplicador por segundo de juego")]
-    public float speedIncreaseRate = 0.08f; // +8% por segundo
+    public float speedIncreaseRate = 0.08f; //+8% por segundo al puck
     private float gameTime = 0f;
     private float gameSpeedMultiplier = 1f;
 
@@ -111,14 +111,14 @@ public class PuckColor : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 0) Actualiza temporizador y multiplicador
+        
         gameTime += Time.fixedDeltaTime;
         gameSpeedMultiplier = 1f + gameTime * speedIncreaseRate;
 
-        // Aplicar fricción artificial
+        //friccion
         rb.velocity *= linearFriction;
 
-        // Limita la velocidad máxima
+        //limitar la velocidad maxima
         float scaledMaxVel = maxVelocity * gameSpeedMultiplier;
         if (scaledMaxVel > 120f)
         {
@@ -136,30 +136,30 @@ public class PuckColor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 1) Cooldown: si chocamos de nuevo antes de hitCooldown, salimos
+            //si chocamos de nuevo antes de hitCooldown, salimos
             if (Time.time - _lastHitTime < hitCooldown) return;
             _lastHitTime = Time.time;
 
-            // 2) Velocidad del paddle
+            //velocidad del paddle (el player)
             var tracker = collision.gameObject.GetComponent<PlayerVelocityTracker>();
             Vector3 paddleVel = tracker?.SmoothedVelocity ?? Vector3.zero;
             if (paddleVel.magnitude < minHitSpeed) return;  // filtro de golpes suaves
 
-            // 3) Dirección del golpe
+            //direccion del golpe
             Vector3 hitDir = (rb.position - collision.transform.position).normalized;
 
-            // 4) Magnitud del nuevo vector
+            //magnitud del nuevo vector
             float rawSpeed = paddleVel.magnitude * hitMultiplier;
             rawSpeed *= gameSpeedMultiplier;
-            // Aplica velocidad mínima
+            //aplicar velocidad minima
             float newSpeed = Mathf.Max(rawSpeed, minPuckHitSpeed);
 
             rb.velocity = hitDir * newSpeed;
 
-            // 5) Pequeño empujón extra para “salir” del collider
+            //pequeño empujon extra para “salir” del collider
             rb.position += hitDir * 0.02f;
 
-            // — el resto de tu FX, sonido y color sale igual —
+            // FX
             lastPlayerTouched = collision.gameObject.GetComponent<PlayerController>();
             puckRenderer.material.color = lastPlayerTouched.GetTeam() == PlayerTeam.Red
                                           ? redPlayerColor : bluePlayerColor;
@@ -170,7 +170,7 @@ public class PuckColor : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("wall"))
         {
-            // 0) Cooldown: solo un rebote cada wallHitCooldown segundos
+            //limitar rebote a cada wallHitCooldown segundos
             if (Time.time - _lastWallHitTime < wallHitCooldown)
                 return;
             _lastWallHitTime = Time.time;
@@ -179,24 +179,24 @@ public class PuckColor : MonoBehaviour
             Vector3 normal = contact.normal;
             Vector3 v = rb.velocity;
 
-            // 1) Descompón la velocidad en normal y tangente
+           
             Vector3 vNormal = Vector3.Dot(v, normal) * normal;
             Vector3 vTangent = v - vNormal;
 
-            // 2) Refleja solo la componente normal e invierte su signo
+           
             Vector3 reflectedNormal = -vNormal * wallElasticity;
 
-            // 3) Reconstruye la velocidad: conservas la tangencial (sin fricción)
+            
             Vector3 newVelocity = vTangent + reflectedNormal;
 
-            // 4) (Opcional) fuerza una velocidad mínima si quieres:
+            //velocidad minima
             float minBounceSpeed = 10f;
             if (newVelocity.magnitude < minBounceSpeed)
                 newVelocity = newVelocity.normalized * minBounceSpeed;
 
             rb.velocity = newVelocity;
 
-            // 5) Separa un poco el puck para evitar colisiones repetidas
+            //separamos un poco el puck para evitar colisiones repetidas
             float penetrationOffset = 0f;
             rb.position += normal * penetrationOffset;
 
@@ -204,7 +204,7 @@ public class PuckColor : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            // 3.1) (Opcional) Cooldown entre rebotes con obstáculos
+            //cooldown entre rebotes con obstaculos
             if (Time.time - _lastWallHitTime < wallHitCooldown)
                 return;
             _lastWallHitTime = Time.time;
@@ -213,29 +213,29 @@ public class PuckColor : MonoBehaviour
             Vector3 normal = contact.normal;
             Vector3 v = rb.velocity;
 
-            // 3.2) Descomponer igual que con la pared
+            
             Vector3 vNormal = Vector3.Dot(v, normal) * normal;
             Vector3 vTangent = v - vNormal;
 
-            // 3.3) Reflejar la normal con elasticidad de obstáculo (quizá distinta a la pared)
-            float obstacleElasticity = 0.8f;  // por ejemplo, 0.8 para un rebote menos elástico
+           
+            float obstacleElasticity = 0.8f; 
             Vector3 reflectedNormal = -vNormal * obstacleElasticity;
 
-            // 3.4) Reconstruir velocidad
+           //esta sera la velocidad maxima al final
             Vector3 newVelocity = vTangent + reflectedNormal;
 
-            // 3.5) (Opcional) Velocidad mínima de rebote
+            //velocidad minima rebote
             float minObstacleBounce = 8f;
             if (newVelocity.magnitude < minObstacleBounce)
                 newVelocity = newVelocity.normalized * minObstacleBounce;
 
             rb.velocity = newVelocity;
 
-            // 3.6) Separar un poco al puck fuera del obstáculo
-            float penetrationOffset = 0.3f;  // un poco menos que con la pared
+            //separar un poco al puck del obstáculo
+            float penetrationOffset = 0.3f;  
             rb.position += normal * penetrationOffset;
 
-            // 3.7) Sonido de rebote contra obstáculo (puedes usar el mismo que la pared o otro distinto)
+            
             if (audioSource != null && wallBounceSound != null)
                 audioSource.PlayOneShot(wallBounceSound);
 
@@ -255,21 +255,21 @@ public class PuckColor : MonoBehaviour
         } while (hitOnomatopoeiaPrefabs.Length > 1 && prefabIndex == lastOnomatopoeiaIndex);
         lastOnomatopoeiaIndex = prefabIndex;
 
-        // Posición exacta del impacto, desplazada hacia afuera
+        //posicion exacta del impacto, vector hacia afuera
         Vector3 spawnPos = new Vector3(0, 10, 0) + contact.point + contact.normal * onomatopoeiaSurfaceOffset;
 
-        // Yaw depende del último jugador que tocó el puck
+        //yaw depende del último jugador que tocó el puck
         float yaw = 0f;
         if (lastPlayerTouched != null)
             yaw = (lastPlayerTouched.GetTeam() == PlayerTeam.Red) ? redYaw : blueYaw;
 
-        // Rotación final:   (pitch ,  yaw , roll)  -> sólo utilizamos pitch y yaw
+        // Rotacion final:   (pitch ,  yaw , roll)  (solo utilizamos pitch y yaw)
         Quaternion rot = Quaternion.Euler(textPitch, yaw, 0f);
 
-        // Instancia del FX
+        //FX
         GameObject fx = Instantiate(hitOnomatopoeiaPrefabs[prefabIndex], spawnPos, rot);
 
-        // Color del texto según equipo
+        //color del texto segun equipo
         TextMeshPro tmp = fx.GetComponentInChildren<TextMeshPro>();
         if (tmp != null)
             tmp.color = (lastPlayerTouched != null && lastPlayerTouched.GetTeam() == PlayerTeam.Red)
@@ -356,7 +356,7 @@ public class PuckColor : MonoBehaviour
         {
             Debug.Log("Puck ha salido de la zona de velocidad");
 
-            // Al salir, empieza el conteo para volver a velocidad normal
+            //volver a la velocidad normal
             StartCoroutine(EndSpeedBoostAfterTime());
         }
 
@@ -368,7 +368,7 @@ public class PuckColor : MonoBehaviour
     {
         yield return new WaitForSeconds(speedBoostDuration);
 
-        // Reducir la velocidad (de forma proporcional)
+        //reducir la velocidad de forma proporcional
         rb.velocity /= speedZoneMultiplier;
         isSpeedBoosted = false;
 

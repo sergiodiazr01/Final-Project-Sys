@@ -11,8 +11,8 @@ public class SpecialZoneSpawner : MonoBehaviour
     public float spawnY = 0f;
 
     [Header("Configuración")]
-    public float spawnInterval = 15f;   // Tiempo entre cada aparición
-    public float zoneLifetime = 10f;    // Cuánto dura cada zona
+    public float spawnInterval = 15f;   //tiempo entre cada aparición
+    public float zoneLifetime = 10f;    //duracion cada zona
 
     public Transform generatedElements;
 
@@ -26,10 +26,10 @@ public class SpecialZoneSpawner : MonoBehaviour
         if (zonePrefabs.Length == 0) return;
 
         const int maxAttempts = 10;
-        const float minDistance = 8f; // distancia mínima entre zonas
-        const float minDistanceFromPuck = 3f; // distancia mínima del puck
+        const float minDistance = 8f; //distancia minima entre zonas
+        const float minDistanceFromPuck = 3f; //distancia minima del puck
 
-        // Tags que identifican zonas especiales activas
+        //tags de zonas especiales
         string[] zoneTags = { "RepulsorZone", "SpeedZone", "TeledirigidaZone" };
 
         GameObject puck = GameObject.FindGameObjectWithTag("Puck");
@@ -42,7 +42,7 @@ public class SpecialZoneSpawner : MonoBehaviour
 
             bool tooClose = false;
 
-            // Comprobación de cercanía a zonas existentes
+            //comprobacion si zonas cercanas
             foreach (string tag in zoneTags)
             {
                 foreach (GameObject existing in GameObject.FindGameObjectsWithTag(tag))
@@ -56,7 +56,7 @@ public class SpecialZoneSpawner : MonoBehaviour
                 if (tooClose) break;
             }
 
-            // Comprobación de cercanía al puck
+            //comprobacion si puck cercano
             if (!tooClose && puck != null)
             {
                 if (Vector3.Distance(puck.transform.position, spawnPos) < minDistanceFromPuck)

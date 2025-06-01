@@ -32,11 +32,11 @@ public class ShockWave : MonoBehaviour
         elapsed += Time.deltaTime;
         float t = elapsed / duration;
 
-        // Expansión
+        //expansion
         float scale = Mathf.Lerp(0f, maxScale, t);
         transform.GetChild(0).localScale = new Vector3(scale, 1f, scale);
 
-        // Desaparición
+        //desaparicion
         Color newColor = originalColor;
         newColor.a = Mathf.Lerp(originalColor.a, 0f, t);
         mat.color = newColor;

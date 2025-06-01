@@ -5,10 +5,10 @@ public class RockSpawner : MonoBehaviour
 {
     [Header("Prefab y tiempos")]
     public GameObject rockPrefab;
-    public GameObject indicatorPrefab;   // <� nuevo
-    public float spawnInterval = 5f;     // tiempo entre spawn (rocai)
-    public float initialDelay = 0f;    // retardo inicial
-    public float indicatorTime = 1f;    // duracion de la señal antes de la roca
+    public GameObject indicatorPrefab;   
+    public float spawnInterval = 5f;     //tiempo entre spawn (rocai)
+    public float initialDelay = 0f;    //retardo inicial
+    public float indicatorTime = 1f;    //duracion de la señal antes de la roca
 
     private float timer;
     private BoxCollider areaCollider;
@@ -42,17 +42,17 @@ public class RockSpawner : MonoBehaviour
         float excl = 10f;
         float x = Random.Range(c.x - h.x, c.x + h.x);
 
-        // límites de Z
+        //límites de Z
         float zMin = c.z - h.z;
         float zMax = c.z + h.z;
         float zLow = c.z - excl;
         float zHigh = c.z + excl;
 
-        // longitudes de tramo inferior y superior
+        //longitudes de tramo inferior y superior
         float l1 = Mathf.Max(0, zLow - zMin);
         float l2 = Mathf.Max(0, zMax - zHigh);
 
-        // elige zona en proporción a sus longitudes y genera Z
+        //elige zona en proporción a sus longitudes y genera Z
         float z = Random.value * (l1 + l2) < l1
                        ? Random.Range(zMin, zLow)
                        : Random.Range(zHigh, zMax);
