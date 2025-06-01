@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1793292677673872981}
   - component: {fileID: 1793292677673872980}
   - component: {fileID: 1793292677673872987}
-  - component: {fileID: -5896699716063960472}
   - component: {fileID: -8300583029660184356}
   m_Layer: 0
   m_Name: teledirigidazone
@@ -99,21 +98,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-5896699716063960472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793292677673872985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 623b578bd014d314bad7a2f8052e9c6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryEffect: {fileID: 1075711361852399785, guid: e78d44611c1d4fe4ebb0fc59a36d1c17, type: 3}
-  entrySound: {fileID: 0}
-  audioSource: {fileID: -8300583029660184356}
 --- !u!82 &-8300583029660184356
 AudioSource:
   m_ObjectHideFlags: 0

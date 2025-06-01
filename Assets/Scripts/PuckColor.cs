@@ -74,9 +74,13 @@ public class PuckColor : MonoBehaviour
     [Tooltip("Ángulo Yaw (Y) cuando golpea el Equipo Azul → apunta a su lado")]
     public float blueYaw = -90f;
 
+    [Header("FX – Partículas zonas")]
     public ParticleSystem redImpactParticlePrefab;
     public ParticleSystem blueImpactParticlePrefab;
-
+    public ParticleSystem speedZoneParticlePrefab;
+    public ParticleSystem repulsorZoneParticlePrefab;
+    public ParticleSystem teledirigidaZoneParticlePrefab;
+    public float zoneParticleLifetime = 1.0f;
     public float particleLifetime = 1.5f;
 
     [Header("Progresión de velocidad")]
@@ -120,7 +124,7 @@ public class PuckColor : MonoBehaviour
         {
             scaledMaxVel = 120f; // Limita la velocidad máxima a 180 unidades
         }
-        
+
         if (rb.velocity.magnitude > scaledMaxVel)
         {
             rb.velocity = rb.velocity.normalized * scaledMaxVel;
@@ -198,7 +202,7 @@ public class PuckColor : MonoBehaviour
 
             audioSource.PlayOneShot(wallBounceSound);
         }
-    else if (collision.gameObject.CompareTag("Obstacle"))
+        else if (collision.gameObject.CompareTag("Obstacle"))
         {
             // 3.1) (Opcional) Cooldown entre rebotes con obstáculos
             if (Time.time - _lastWallHitTime < wallHitCooldown)
@@ -210,7 +214,7 @@ public class PuckColor : MonoBehaviour
             Vector3 v = rb.velocity;
 
             // 3.2) Descomponer igual que con la pared
-            Vector3 vNormal  = Vector3.Dot(v, normal) * normal;
+            Vector3 vNormal = Vector3.Dot(v, normal) * normal;
             Vector3 vTangent = v - vNormal;
 
             // 3.3) Reflejar la normal con elasticidad de obstáculo (quizá distinta a la pared)
@@ -245,7 +249,8 @@ public class PuckColor : MonoBehaviour
     {
         if (hitOnomatopoeiaPrefabs == null || hitOnomatopoeiaPrefabs.Length == 0) return;
         int prefabIndex;
-        do {
+        do
+        {
             prefabIndex = Random.Range(0, hitOnomatopoeiaPrefabs.Length);
         } while (hitOnomatopoeiaPrefabs.Length > 1 && prefabIndex == lastOnomatopoeiaIndex);
         lastOnomatopoeiaIndex = prefabIndex;
@@ -287,6 +292,7 @@ public class PuckColor : MonoBehaviour
 
             rb.velocity *= speedZoneMultiplier;
             isSpeedBoosted = true;
+            SpawnZoneParticles(speedZoneParticlePrefab);
         }
         else if (other.CompareTag("RepulsorZone"))
         {
@@ -309,6 +315,7 @@ public class PuckColor : MonoBehaviour
 
 
             }
+            SpawnZoneParticles(repulsorZoneParticlePrefab);
         }
 
         else if (other.CompareTag("TeledirigidaZone") && lastPlayerTouched != null)
@@ -337,6 +344,8 @@ public class PuckColor : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.AddForce(direction * forceToGoal, ForceMode.Impulse);
+            SpawnZoneParticles(teledirigidaZoneParticlePrefab);
+
         }
 
     }
@@ -384,8 +393,8 @@ public class PuckColor : MonoBehaviour
         Debug.Log("Puck extra autodestruido");
         Destroy(gameObject);
     }
-    
-   void SpawnImpactParticles(ContactPoint contact)
+
+    void SpawnImpactParticles(ContactPoint contact)
     {
         ParticleSystem prefab = (lastPlayerTouched.GetTeam() == PlayerTeam.Red)
                                  ? redImpactParticlePrefab
@@ -396,6 +405,14 @@ public class PuckColor : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(contact.normal);
         ParticleSystem ps = Instantiate(prefab, spawnPos, rot);
         Destroy(ps.gameObject, particleLifetime);
+    }
+    
+    void SpawnZoneParticles(ParticleSystem prefab)
+    {
+        if (!prefab) return;
+        Vector3 spawnPos = transform.position + Vector3.up * 0.05f; // un poco encima del puck
+        ParticleSystem ps = Instantiate(prefab, spawnPos, Quaternion.identity);
+        Destroy(ps.gameObject, zoneParticleLifetime);
     }
 
 }

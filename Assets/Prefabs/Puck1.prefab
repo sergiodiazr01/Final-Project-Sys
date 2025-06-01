@@ -194,6 +194,10 @@ MonoBehaviour:
   blueYaw: -90
   redImpactParticlePrefab: {fileID: 6090531381606113675, guid: 13fa980b8c224c241b4e4242df025f3d, type: 3}
   blueImpactParticlePrefab: {fileID: 6090531381606113675, guid: 215df97fc4bf5d5458798160dbbf836b, type: 3}
+  speedZoneParticlePrefab: {fileID: 6090531381606113675, guid: 44deda884f811964e88d6de2d94855ec, type: 3}
+  repulsorZoneParticlePrefab: {fileID: 6090531381606113675, guid: 7484b3fb386c86f438c91e82d3d72e5c, type: 3}
+  teledirigidaZoneParticlePrefab: {fileID: 6090531381606113675, guid: 07c7c00ac4b08264a816d17f251583f2, type: 3}
+  zoneParticleLifetime: 1
   particleLifetime: 1.5
   speedIncreaseRate: 0.08
 --- !u!82 &4370923268126289884
