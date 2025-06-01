@@ -11,17 +11,49 @@ public class PowerUpBox : MonoBehaviour
     public AudioClip powerUpSound; // Sonido del power-up
     public AudioClip GrowSound; // Sonido del puck extra
     public AudioClip ShieldSound; // Sonido del aumento de tamaño
-    private void Start()
+
+    public Material shieldMaterial;
+    public Material growMaterial;
+    public Material duplicateMaterial;
+    private int powerType;
+    private Renderer boxRenderer;
+
+    private void Awake()
     {
-        if (puckContainer == null)
+        audioSource = GetComponent<AudioSource>();
+        boxRenderer = GetComponentInChildren<Renderer>();
+
+        powerType = Random.Range(1, 4);
+
+        // Cambiamos el material
+        if (boxRenderer != null)
         {
-            GameObject container = GameObject.Find("puckContainer");
-            if (container != null)
+            switch (powerType)
             {
-                puckContainer = container.transform;
+                case 1:  // Escudo
+                    boxRenderer.material = shieldMaterial;
+                    break;
+                case 2:  // Duplicar puck
+                    boxRenderer.material = duplicateMaterial;
+                    break;
+                case 3:  // Crecimiento
+                    boxRenderer.material = growMaterial;
+                    break;
             }
         }
-        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        //if (puckContainer == null)
+        //{
+        //    GameObject container = GameObject.Find("puckContainer");
+        //    if (container != null)
+        //    {
+        //        puckContainer = container.transform;
+        //    }
+        //}
+        //audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +72,7 @@ public class PowerUpBox : MonoBehaviour
             int randomPower = Random.Range(1, 4);
             // Forzar solo powerup boxes
             // randomPower = 3;
+            Renderer rend = GetComponent<Renderer>();
 
             if (randomPower == 1)
             {
@@ -50,6 +83,7 @@ public class PowerUpBox : MonoBehaviour
                     puckScript.lastPlayerTouched.ActivateGoalShield();
                     Debug.Log("Power-Up: Escudo activado en portería del jugador");
                 }
+                rend.material = shieldMaterial;
             }
             else if (randomPower == 2)
             {
