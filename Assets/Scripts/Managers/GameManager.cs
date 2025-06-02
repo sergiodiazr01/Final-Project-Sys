@@ -64,6 +64,9 @@ public class GameManager : MonoBehaviour
     [Header("Mapa")]
     private int selectedMapIndex = 0;
 
+    private bool canScore = true;
+    public float goalCooldown = 5f;
+
 
 
     private void Awake()
@@ -124,6 +127,13 @@ public class GameManager : MonoBehaviour
 
     public void GoalScored(PlayerTeam scoringTeam)
     {
+        if (!canScore)
+        { 
+            return;
+        }
+
+        canScore = false;
+        StartCoroutine(ResetGoalCooldown());
 
         if (scoringTeam == PlayerTeam.Red)
             redScore++;
@@ -131,7 +141,7 @@ public class GameManager : MonoBehaviour
             blueScore++;
 
         UpdateUI();
-        if (redScore < scoreToWin || blueScore < scoreToWin)
+        if (redScore < scoreToWin && blueScore < scoreToWin)
         {
            StartCoroutine(PlayCountdownSoundDelayed(1f));
         }
@@ -140,6 +150,12 @@ public class GameManager : MonoBehaviour
             ShowWin(PlayerTeam.Red);
         else if (blueScore >= scoreToWin)
             ShowWin(PlayerTeam.Blue);
+    }
+
+    private IEnumerator ResetGoalCooldown()
+    {
+        yield return new WaitForSeconds(goalCooldown);
+        canScore = true;
     }
 
     void UpdateUI()

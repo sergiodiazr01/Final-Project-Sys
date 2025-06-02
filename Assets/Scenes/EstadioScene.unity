@@ -4049,6 +4049,7 @@ MonoBehaviour:
   goalTeam: 1
   puckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
   goalSound: {fileID: 8300000, guid: 83b0055c524bb084f901faaa0bf26583, type: 3}
+  puckContainer: {fileID: 1233049386}
 --- !u!82 &535202438
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8696,6 +8697,7 @@ MonoBehaviour:
   goalTeam: 0
   puckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
   goalSound: {fileID: 8300000, guid: 83b0055c524bb084f901faaa0bf26583, type: 3}
+  puckContainer: {fileID: 1233049386}
 --- !u!82 &1429405266
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10655,7 +10657,7 @@ MonoBehaviour:
   puckPrefab: {fileID: 4370923268126289887, guid: b6cd08f89fb658e44b0bcb46a8f90bf5, type: 3}
   redScore: 0
   blueScore: 0
-  scoreToWin: 4
+  scoreToWin: 3
   redScoreText: {fileID: 200406876}
   blueScoreText: {fileID: 954608717}
   winText: {fileID: 0}
@@ -10686,6 +10688,7 @@ MonoBehaviour:
   powerUpSpawner: {fileID: 1885542785}
   specialZoneSpawner: {fileID: 1543654970}
   obstacleSpawner: {fileID: 763416862}
+  goalCooldown: 5
 --- !u!82 &1589443879
 AudioSource:
   m_ObjectHideFlags: 0

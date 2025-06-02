@@ -5,6 +5,7 @@ public class PowerUpBox : MonoBehaviour
     
     public GameObject extraPuckPrefab;
     public float extraPuckLifetime = 5f; // Tiempo que el puck extra estará activo
+    public float boxLifetime = 20f;
     public Transform puckContainer; // Donde guardamos los pucks
 
     private AudioSource audioSource; // Componente de AudioSource para reproducir sonidos
@@ -52,15 +53,7 @@ public class PowerUpBox : MonoBehaviour
 
     private void Start()
     {
-        //if (puckContainer == null)
-        //{
-        //    GameObject container = GameObject.Find("puckContainer");
-        //    if (container != null)
-        //    {
-        //        puckContainer = container.transform;
-        //    }
-        //}
-        //audioSource = GetComponent<AudioSource>();
+        Destroy(gameObject, boxLifetime);
     }
 
     private void OnTriggerEnter(Collider other)

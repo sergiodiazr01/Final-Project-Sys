@@ -8,7 +8,10 @@ public class goal : MonoBehaviour
 
     private AudioSource audioSource;           // Componente de AudioSource para reproducir sonidos
     public AudioClip goalSound;              // Sonido del gol 
-    
+    public Transform puckContainer;
+
+    private bool goalProcessed = false;
+
     private void Start()
     {
         //obtener el componente AudioSource del GameObject
@@ -31,10 +34,32 @@ public class goal : MonoBehaviour
             //destruir el puck actual
             GameObject puckGO = other.GetComponentInParent<PuckColor>()?.gameObject;
             if (puckGO != null)
+            {
                 Destroy(puckGO);
+            }
             else
+            {
                 Debug.LogWarning("No se pudo encontrar el Puck para destruirlo tras el gol.");
+            }
 
+            if (puckContainer != null)
+            {
+                foreach (Transform child in puckContainer.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            if (!goalProcessed)
+            {
+                goalProcessed = true;
+                StartCoroutine(PostGoalDelay());
+            }
+        }
+    }
+
+        private IEnumerator PostGoalDelay()
+        {
             //iniciar respawn del nuevo puck
             GameManager.instance.RespawnPuck();
 
@@ -49,9 +74,8 @@ public class goal : MonoBehaviour
                 waveColor = new Color(255f / 188f, 0f, 0f); //onda roja
             }
             GameManager.instance.TriggerShockwave(transform.position + new Vector3(0f, 8f, 0f), waveColor);
-
+            yield return new WaitForSeconds(5f);
+            goalProcessed = false;
         }
-    }
 
 }
-
